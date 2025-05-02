@@ -37,6 +37,13 @@ MainWindow::MainWindow(QWidget* parent)
     this->setFocusPolicy(Qt::StrongFocus);
     this->setFocus();
 
+    timerUpdateParametrs_ = new QTimer(this);
+    connect(timerUpdateParametrs_, &QTimer::timeout, this,
+            &MainWindow::UpdateParametrsSlot);
+
+    ui_->labelAccuracy->setText("100% / 0%");
+    ui_->labelCharsSec->setText("0 / 0");
+
     connect(ui_->buttonOpenFile, &QPushButton::clicked, this,
             &MainWindow::OpenFile);
     connect(winwindow_, &WinWindow::RepeatTheSame, this,
@@ -295,12 +302,6 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
                 userInput_.append('\'');
             }
             pressed = ui_->keyQuote;
-            break;
-        }
-        case Qt::Key_Return: {
-            ui_->keyEnter->setPalette(pressedKey_);
-            userInput_.append('\n');
-            pressed = ui_->keyEnter;
             break;
         }
         case Qt::Key_Z: {
@@ -572,6 +573,13 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             pressed = ui_->keySpace;
             break;
         }
+        case Qt::Key_Return: {
+            ui_->keyEnter->setPalette(pressedKey_);
+            userInput_.append('\n');
+            pressed = ui_->keyEnter;
+            this->fixParametrs();
+            break;
+        }
     }
 
 
@@ -582,6 +590,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
         ui_->userInput->setText(userInput_);
         ui_->userInput->verticalScrollBar()->setValue(
             ui_->userInput->verticalScrollBar()->maximum());
+        inputedCharacters_++;
         this->checkInput();
     }
     this->setFocus();
@@ -613,7 +622,8 @@ void MainWindow::checkInput() {
     }
     ui_->taskText->setText(rest);
 
-    if (right_characters == taskText_.size()) {
+    if (right_characters == taskText_.size() && taskText_.size() != 0) {
+        timerUpdateParametrs_->stop();
         winwindow_->setWindowModality(Qt::ApplicationModal);
         winwindow_->show();
     }
@@ -621,9 +631,25 @@ void MainWindow::checkInput() {
     if (right_characters < userInput_.size() &&
         right_characters < taskText_.size()) {
         ui_->userInput->setPalette(errorInput_);
+        wrongCharacters_++;
     } else {
         ui_->userInput->setPalette(normalInput_);
+        rightCharacters_++;
     }
+}
+
+void MainWindow::fixParametrs() {
+    previousAccuracy_ =
+        rightCharacters_ / (wrongCharacters_ + rightCharacters_) * hundread_;
+    rightCharacters_ = 1;
+    wrongCharacters_ = 0;
+    ui_->labelAccuracy->setText("100% / " + QString::number(previousAccuracy_) +
+                                '%');
+
+    previousCharsPerSec_ = inputedCharacters_ / ellapsedSeconds_;
+    inputedCharacters_ = 0;
+    ellapsedSeconds_ = 0;
+    ui_->labelCharsSec->setText("0 / " + QString::number(previousCharsPerSec_));
 }
 
 void MainWindow::OpenFile() {
@@ -646,4 +672,17 @@ void MainWindow::ClearInput() {
     ui_->userInput->setText(userInput_);
     ui_->userInput->setPalette(normalInput_);
     this->checkInput();
+    timerUpdateParametrs_->start(updatingTime_);
+}
+
+void MainWindow::UpdateParametrsSlot() {
+    double accuracy =
+        rightCharacters_ / (wrongCharacters_ + rightCharacters_) * hundread_;
+    ui_->labelAccuracy->setText(QString::number(accuracy) + "% / " +
+                                QString::number(previousAccuracy_) + '%');
+
+    ellapsedSeconds_++;
+    double chars_per_sec = inputedCharacters_ / ellapsedSeconds_;
+    ui_->labelCharsSec->setText(QString::number(chars_per_sec) + " / " +
+                                QString::number(previousCharsPerSec_));
 }

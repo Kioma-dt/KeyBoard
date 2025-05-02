@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -90,6 +91,14 @@ public:
     QTextEdit *keySqrBrackR;
     QTextEdit *taskText;
     QPushButton *buttonOpenFile;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *label;
+    QLabel *labelAccuracy;
+    QWidget *widget1;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *label_2;
+    QLabel *labelCharsSec;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -456,7 +465,6 @@ public:
 
         horizontalLayout_4->addWidget(keyEqual);
 
-        horizontalLayout_4->setStretch(0, 40);
         keyShiftR = new QTextEdit(centralwidget);
         keyShiftR->setObjectName("keyShiftR");
         keyShiftR->setGeometry(QRect(950, 530, 191, 40));
@@ -624,6 +632,38 @@ public:
         buttonOpenFile = new QPushButton(centralwidget);
         buttonOpenFile->setObjectName("buttonOpenFile");
         buttonOpenFile->setGeometry(QRect(20, 20, 161, 31));
+        widget = new QWidget(centralwidget);
+        widget->setObjectName("widget");
+        widget->setGeometry(QRect(230, 30, 281, 31));
+        horizontalLayout_5 = new QHBoxLayout(widget);
+        horizontalLayout_5->setObjectName("horizontalLayout_5");
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        label = new QLabel(widget);
+        label->setObjectName("label");
+
+        horizontalLayout_5->addWidget(label);
+
+        labelAccuracy = new QLabel(widget);
+        labelAccuracy->setObjectName("labelAccuracy");
+
+        horizontalLayout_5->addWidget(labelAccuracy);
+
+        widget1 = new QWidget(centralwidget);
+        widget1->setObjectName("widget1");
+        widget1->setGeometry(QRect(580, 30, 241, 20));
+        horizontalLayout_6 = new QHBoxLayout(widget1);
+        horizontalLayout_6->setObjectName("horizontalLayout_6");
+        horizontalLayout_6->setContentsMargins(0, 0, 0, 0);
+        label_2 = new QLabel(widget1);
+        label_2->setObjectName("label_2");
+
+        horizontalLayout_6->addWidget(label_2);
+
+        labelCharsSec = new QLabel(widget1);
+        labelCharsSec->setObjectName("labelCharsSec");
+
+        horizontalLayout_6->addWidget(labelCharsSec);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -1074,6 +1114,10 @@ public:
 "</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; vertical-align:super;\">} </span><span style=\" font-size:18pt;\">] </span></p></body></html>", nullptr));
         buttonOpenFile->setText(QCoreApplication::translate("MainWindow", "Open File with Text", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Accuracy: ", nullptr));
+        labelAccuracy->setText(QString());
+        label_2->setText(QCoreApplication::translate("MainWindow", "Chars/sec: ", nullptr));
+        labelCharsSec->setText(QString());
     } // retranslateUi
 
 };

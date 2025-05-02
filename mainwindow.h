@@ -36,18 +36,29 @@ class MainWindow : public QMainWindow {
     QString userInput_;
     QString taskText_;
     bool capsLock_ = false;
+    double rightCharacters_ = 1;
+    double wrongCharacters_ = 0;
+    double previousAccuracy_ = 0;
+    double inputedCharacters_ = 0;
+    double ellapsedSeconds_ = 0;
+    double previousCharsPerSec_ = 0;
+    QTimer* timerUpdateParametrs_;
 
     WinWindow* winwindow_;
 
     const int pressLatence_ = 250;
     const int fontSize_ = 15;
+    const int updatingTime_ = 1000;
+    const int hundread_ = 100;
 
     void keyPressEvent(QKeyEvent* event) override;
     void changeTaskText(const QString& newText);
     void checkInput();
+    void fixParametrs();
 
    private slots:
     void OpenFile();
     void ClearInput();
+    void UpdateParametrsSlot();
 };
 #endif	// MAINWINDOW_H
