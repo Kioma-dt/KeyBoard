@@ -53,10 +53,14 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../main.cpp \
-		../../mainwindow.cpp moc_mainwindow.cpp
+		../../mainwindow.cpp \
+		../../winwindow.cpp moc_mainwindow.cpp \
+		moc_winwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
-		moc_mainwindow.o
+		winwindow.o \
+		moc_mainwindow.o \
+		moc_winwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/linux.conf \
@@ -102,6 +106,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/default_pre.prf \
@@ -122,8 +127,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/lex.prf \
-		../../../../Task_1.pro ../../mainwindow.h ../../main.cpp \
-		../../mainwindow.cpp
+		../../../../Task_1.pro ../../mainwindow.h \
+		../../winwindow.h ../../main.cpp \
+		../../mainwindow.cpp \
+		../../winwindow.cpp
 QMAKE_TARGET  = Task_1
 DESTDIR       = 
 TARGET        = Task_1
@@ -132,7 +139,7 @@ TARGET        = Task_1
 first: all
 ####### Build rules
 
-Task_1: ui_mainwindow.h $(OBJECTS)  
+Task_1: ui_mainwindow.h ui_winwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../Task_1.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
@@ -180,6 +187,7 @@ Makefile: ../../Task_1.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/default_pre.prf \
@@ -250,6 +258,7 @@ Makefile: ../../Task_1.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/default_pre.prf:
@@ -289,9 +298,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../mainwindow.h ../../winwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../main.cpp ../../mainwindow.cpp ../../winwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../mainwindow.ui ../../winwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -323,24 +332,34 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -fPIC -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_winwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_winwindow.cpp
 moc_mainwindow.cpp: ../../mainwindow.h \
+		../../winwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
 	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/roma/Documents/453503/SEM_2/LR_5/Task_1/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/roma/Documents/453503/SEM_2/LR_5/Task_1 -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
+
+moc_winwindow.cpp: ../../winwindow.h \
+		moc_predefs.h \
+		/usr/lib/qt6/libexec/moc
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/roma/Documents/453503/SEM_2/LR_5/Task_1/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/roma/Documents/453503/SEM_2/LR_5/Task_1 -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../winwindow.h -o moc_winwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_winwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_mainwindow.h ui_winwindow.h
 ui_mainwindow.h: ../../mainwindow.ui \
 		/usr/lib/qt6/libexec/uic
 	/usr/lib/qt6/libexec/uic ../../mainwindow.ui -o ui_mainwindow.h
+
+ui_winwindow.h: ../../winwindow.ui \
+		/usr/lib/qt6/libexec/uic
+	/usr/lib/qt6/libexec/uic ../../winwindow.ui -o ui_winwindow.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -352,15 +371,24 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../../main.cpp ../../mainwindow.h
+main.o: ../../main.cpp ../../mainwindow.h \
+		../../winwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
 mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
+		../../winwindow.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
 
+winwindow.o: ../../winwindow.cpp ../../winwindow.h \
+		ui_winwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o winwindow.o ../../winwindow.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_winwindow.o: moc_winwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_winwindow.o moc_winwindow.cpp
 
 ####### Install
 

@@ -5,19 +5,43 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui_(new Ui::MainWindow) {
     ui_->setupUi(this);
 
+    winwindow_ = new WinWindow();
+    winwindow_->setWindowTitle("WIN");
+
     normalKey_ = QPalette();
     normalKey_.setColor(QPalette::Base, Qt::white);
 
     pressedKey_ = QPalette();
     pressedKey_.setColor(QPalette::Base, Qt::yellow);
 
+    normalInput_ = QPalette();
+    normalInput_.setColor(QPalette::Base, Qt::white);
+    normalInput_.setColor(QPalette::Text, Qt::black);
+
+    errorInput_ = QPalette();
+    errorInput_.setColor(QPalette::Base, Qt::yellow);
+    errorInput_.setColor(QPalette::Text, Qt::red);
+
     QFont font = QFont();
     font.setPointSize(fontSize_);
     ui_->userInput->setFont(font);
     ui_->userInput->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui_->userInput->setPalette(normalInput_);
+
+    normalTaskText_ = QPalette();
+    normalTaskText_.setColor(QPalette::Base, Qt::transparent);
+    normalTaskText_.setColor(QPalette::Text, Qt::black);
+    ui_->taskText->setPalette(normalTaskText_);
+    ui_->taskText->setFont(font);
 
     this->setFocusPolicy(Qt::StrongFocus);
     this->setFocus();
+
+    connect(ui_->buttonOpenFile, &QPushButton::clicked, this,
+            &MainWindow::OpenFile);
+    connect(winwindow_, &WinWindow::RepeatTheSame, this,
+            &MainWindow::ClearInput);
+    connect(winwindow_, &WinWindow::TryNew, this, &MainWindow::OpenFile);
 }
 
 MainWindow::~MainWindow() {
@@ -558,6 +582,68 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
         ui_->userInput->setText(userInput_);
         ui_->userInput->verticalScrollBar()->setValue(
             ui_->userInput->verticalScrollBar()->maximum());
+        this->checkInput();
     }
     this->setFocus();
+}
+
+void MainWindow::changeTaskText(const QString& newText) {
+    taskText_ = newText;
+    ui_->taskText->setText(taskText_);
+    ui_->taskText->setPalette(normalTaskText_);
+}
+
+void MainWindow::checkInput() {
+    int right_characters = 0;
+
+    for (; right_characters < userInput_.size() &&
+           right_characters < taskText_.size();
+         right_characters++) {
+
+
+        if (userInput_[right_characters] != taskText_[right_characters]) {
+            break;
+        }
+    }
+
+    QString rest;
+
+    for (int i = right_characters; i < taskText_.size(); i++) {
+        rest.push_back(taskText_[i]);
+    }
+    ui_->taskText->setText(rest);
+
+    if (right_characters == taskText_.size()) {
+        winwindow_->setWindowModality(Qt::ApplicationModal);
+        winwindow_->show();
+    }
+
+    if (right_characters < userInput_.size() &&
+        right_characters < taskText_.size()) {
+        ui_->userInput->setPalette(errorInput_);
+    } else {
+        ui_->userInput->setPalette(normalInput_);
+    }
+}
+
+void MainWindow::OpenFile() {
+    QString path = QFileDialog::getOpenFileName(this, "Choose Text File",
+                                                "/home/roma/Documents/KeyBoard",
+                                                "Text File(*.txt)");
+
+    QFile* file = new QFile(path);
+    if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw std::runtime_error("Can't read from File");
+    }
+
+    this->changeTaskText(file->readAll());
+    this->ClearInput();
+    file->close();
+}
+
+void MainWindow::ClearInput() {
+    userInput_.clear();
+    ui_->userInput->setText(userInput_);
+    ui_->userInput->setPalette(normalInput_);
+    this->checkInput();
 }

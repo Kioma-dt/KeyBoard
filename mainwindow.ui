@@ -26,6 +26,9 @@
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -44,6 +47,9 @@
     </property>
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -71,6 +77,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -97,11 +106,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <height>41</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
      <item>
       <widget class="QTextEdit" name="keyA">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -126,6 +144,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -148,6 +169,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyD">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -172,6 +196,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -194,6 +221,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyG">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -218,6 +248,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -240,6 +273,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyJ">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -264,6 +300,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -286,6 +325,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyL">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -310,6 +352,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -332,6 +377,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyQuote">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -365,6 +413,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -388,11 +439,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <height>41</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
      <item>
       <widget class="QTextEdit" name="keyZ">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -417,6 +477,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -439,6 +502,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyC">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -463,6 +529,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -485,6 +554,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyB">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -509,6 +581,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -531,6 +606,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyM">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -555,6 +633,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -577,6 +658,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyDot">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -601,6 +685,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -624,17 +711,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QWidget" name="layoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>83</x>
       <y>380</y>
       <width>911</width>
       <height>41</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="40,0,0,0,0,0,0,0,0,0,0,0,0">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
      <item>
       <widget class="QTextEdit" name="keyQuoteLeft">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -659,6 +755,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -681,6 +780,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="key2">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -705,6 +807,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -727,6 +832,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="key4">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -751,6 +859,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -773,6 +884,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="key6">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -797,6 +911,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -819,6 +936,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="key8">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -843,6 +963,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -865,6 +988,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="key0">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -889,6 +1015,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -911,6 +1040,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyEqual">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -944,6 +1076,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -969,6 +1104,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -996,6 +1134,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -1021,6 +1162,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1048,6 +1192,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="cursor" stdset="0">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -1062,7 +1209,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -1071,11 +1218,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <height>41</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="40,40,40,40,40,40,40,40,40,40,40,40">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
      <item>
       <widget class="QTextEdit" name="keyQ">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -1100,6 +1256,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -1122,6 +1281,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyE">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -1146,6 +1308,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -1168,6 +1333,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyT">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -1192,6 +1360,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -1214,6 +1385,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyU">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -1238,6 +1412,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -1260,6 +1437,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keyO">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -1284,6 +1464,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -1306,6 +1489,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextEdit" name="keySqrBrackL">
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -1330,6 +1516,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="cursor" stdset="0">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -1349,6 +1538,38 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QTextEdit" name="taskText">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>180</y>
+      <width>921</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonOpenFile">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open File with Text</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

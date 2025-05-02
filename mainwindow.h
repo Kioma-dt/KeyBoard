@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QFile>
+#include <QFileDialog>
 #include <QFont>
 #include <QKeyEvent>
 #include <QMainWindow>
@@ -8,6 +10,7 @@
 #include <QScrollBar>
 #include <QString>
 #include <QTimer>
+#include "winwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,12 +30,24 @@ class MainWindow : public QMainWindow {
     Ui::MainWindow* ui_;
     QPalette normalKey_;
     QPalette pressedKey_;
+    QPalette normalTaskText_;
+    QPalette normalInput_;
+    QPalette errorInput_;
     QString userInput_;
+    QString taskText_;
     bool capsLock_ = false;
+
+    WinWindow* winwindow_;
 
     const int pressLatence_ = 250;
     const int fontSize_ = 15;
 
     void keyPressEvent(QKeyEvent* event) override;
+    void changeTaskText(const QString& newText);
+    void checkInput();
+
+   private slots:
+    void OpenFile();
+    void ClearInput();
 };
 #endif	// MAINWINDOW_H
