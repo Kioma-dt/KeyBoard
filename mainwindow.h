@@ -4,8 +4,10 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QFont>
+#include <QHash>
 #include <QKeyEvent>
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QPalette>
 #include <QScrollBar>
 #include <QString>
@@ -17,6 +19,8 @@ namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
+
+enum Language { kEnglish = 0, kRussian };
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -38,11 +42,17 @@ class MainWindow : public QMainWindow {
     bool capsLock_ = false;
     double rightCharacters_ = 1;
     double wrongCharacters_ = 0;
-    double previousAccuracy_ = 0;
+    double previousAccuracy_ = -1;
     double inputedCharacters_ = 0;
+    double previousCharsPerSec_ = -1;
+    double inputedWords_ = 0;
+    double previousWordsPerMin_ = -1;
     double ellapsedSeconds_ = 0;
-    double previousCharsPerSec_ = 0;
     QTimer* timerUpdateParametrs_;
+
+    Language language_ = kEnglish;
+    QHash<int, QVector<char>> keysUpper_;
+    QHash<int, QVector<char>> keysLower_;
 
     WinWindow* winwindow_;
 
@@ -50,11 +60,14 @@ class MainWindow : public QMainWindow {
     const int fontSize_ = 15;
     const int updatingTime_ = 1000;
     const int hundread_ = 100;
+    const int secondsInMinute_ = 60;
 
     void keyPressEvent(QKeyEvent* event) override;
     void changeTaskText(const QString& newText);
     void checkInput();
     void fixParametrs();
+    void clearParametrs();
+    void initLanguages();
 
    private slots:
     void OpenFile();

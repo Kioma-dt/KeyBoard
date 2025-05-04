@@ -41,8 +41,7 @@ MainWindow::MainWindow(QWidget* parent)
     connect(timerUpdateParametrs_, &QTimer::timeout, this,
             &MainWindow::UpdateParametrsSlot);
 
-    ui_->labelAccuracy->setText("100% / 0%");
-    ui_->labelCharsSec->setText("0 / 0");
+    this->clearParametrs();
 
     connect(ui_->buttonOpenFile, &QPushButton::clicked, this,
             &MainWindow::OpenFile);
@@ -62,7 +61,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
         case Qt::Key_Q: {
             ui_->keyQ->setPalette(pressedKey_);
             if (event->modifiers().testFlag(Qt::ShiftModifier) ^ capsLock_) {
-                userInput_.append('Q');
+                userInput_.append(event->text());
             } else {
                 userInput_.append('q');
             }
@@ -577,7 +576,6 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             ui_->keyEnter->setPalette(pressedKey_);
             userInput_.append('\n');
             pressed = ui_->keyEnter;
-            this->fixParametrs();
             break;
         }
     }
@@ -587,11 +585,13 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
         QTimer::singleShot(pressLatence_, [this, pressed]() {
             pressed->setPalette(normalKey_);
         });
-        ui_->userInput->setText(userInput_);
-        ui_->userInput->verticalScrollBar()->setValue(
-            ui_->userInput->verticalScrollBar()->maximum());
-        inputedCharacters_++;
-        this->checkInput();
+        if (event->key() != Qt::Key_Shift) {
+            ui_->userInput->setText(userInput_);
+            ui_->userInput->verticalScrollBar()->setValue(
+                ui_->userInput->verticalScrollBar()->maximum());
+            inputedCharacters_++;
+            this->checkInput();
+        }
     }
     this->setFocus();
 }
@@ -635,36 +635,94 @@ void MainWindow::checkInput() {
     } else {
         ui_->userInput->setPalette(normalInput_);
         rightCharacters_++;
+        if (userInput_.endsWith(' ')) {
+            inputedWords_++;
+        }
+        if (userInput_.endsWith('\n')) {
+            this->fixParametrs();
+        }
     }
 }
 
 void MainWindow::fixParametrs() {
+
+
+    if (previousAccuracy_ < 0) {
+        previousAccuracy_ = rightCharacters_ /
+                            (wrongCharacters_ + rightCharacters_) * hundread_;
+    }
     previousAccuracy_ =
-        rightCharacters_ / (wrongCharacters_ + rightCharacters_) * hundread_;
+        (previousAccuracy_ +
+         rightCharacters_ / (wrongCharacters_ + rightCharacters_) * hundread_) /
+        2;
     rightCharacters_ = 1;
     wrongCharacters_ = 0;
     ui_->labelAccuracy->setText("100% / " + QString::number(previousAccuracy_) +
                                 '%');
 
-    previousCharsPerSec_ = inputedCharacters_ / ellapsedSeconds_;
+
+    if (previousCharsPerSec_ < 0) {
+        previousCharsPerSec_ = inputedCharacters_ / ellapsedSeconds_;
+    }
+    previousCharsPerSec_ =
+        (previousCharsPerSec_ + inputedCharacters_ / ellapsedSeconds_) / 2;
     inputedCharacters_ = 0;
+    ui_->labelCharsPerSec->setText("0 / " +
+                                   QString::number(previousCharsPerSec_));
+
+
+    if (previousWordsPerMin_ < 0) {
+        previousWordsPerMin_ =
+            inputedWords_ / ellapsedSeconds_ * secondsInMinute_;
+    }
+    previousWordsPerMin_ =
+        (previousWordsPerMin_ +
+         inputedWords_ / ellapsedSeconds_ * secondsInMinute_) /
+        2;
+    inputedWords_ = 0;
+    ui_->labelWordsPerMin->setText("0 / " +
+                                   QString::number(previousWordsPerMin_));
+
     ellapsedSeconds_ = 0;
-    ui_->labelCharsSec->setText("0 / " + QString::number(previousCharsPerSec_));
 }
 
-void MainWindow::OpenFile() {
-    QString path = QFileDialog::getOpenFileName(this, "Choose Text File",
-                                                "/home/roma/Documents/KeyBoard",
-                                                "Text File(*.txt)");
+void MainWindow::clearParametrs() {
+    rightCharacters_ = 1;
+    wrongCharacters_ = 0;
+    previousAccuracy_ = -1;
+    ui_->labelAccuracy->setText("100% / -1");
 
-    QFile* file = new QFile(path);
-    if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
-        throw std::runtime_error("Can't read from File");
+    inputedCharacters_ = 0;
+    previousCharsPerSec_ = -1;
+    ui_->labelCharsPerSec->setText("0 / -1");
+
+    inputedWords_ = 0;
+    previousWordsPerMin_ = -1;
+    ui_->labelWordsPerMin->setText("0 / -1");
+}
+
+void MainWindow::initLanguages() {}
+
+void MainWindow::OpenFile() {
+    try {
+        QString path = QFileDialog::getOpenFileName(
+            this, "Choose Text File", "/home/roma/Documents/KeyBoard",
+            "Text File(*.txt)");
+
+        QFile* file = new QFile(path);
+        if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
+            throw std::runtime_error("Can't read from File");
+        }
+
+        this->changeTaskText(file->readAll());
+        this->ClearInput();
+        file->close();
     }
 
-    this->changeTaskText(file->readAll());
-    this->ClearInput();
-    file->close();
+
+    catch (const std::runtime_error& ex) {
+        QMessageBox::warning(this, "Can't Open File", ex.what());
+    }
 }
 
 void MainWindow::ClearInput() {
@@ -672,6 +730,7 @@ void MainWindow::ClearInput() {
     ui_->userInput->setText(userInput_);
     ui_->userInput->setPalette(normalInput_);
     this->checkInput();
+    this->clearParametrs();
     timerUpdateParametrs_->start(updatingTime_);
 }
 
@@ -682,7 +741,12 @@ void MainWindow::UpdateParametrsSlot() {
                                 QString::number(previousAccuracy_) + '%');
 
     ellapsedSeconds_++;
+
     double chars_per_sec = inputedCharacters_ / ellapsedSeconds_;
-    ui_->labelCharsSec->setText(QString::number(chars_per_sec) + " / " +
-                                QString::number(previousCharsPerSec_));
+    ui_->labelCharsPerSec->setText(QString::number(chars_per_sec) + " / " +
+                                   QString::number(previousCharsPerSec_));
+
+    double words_per_min = inputedWords_ / ellapsedSeconds_ * secondsInMinute_;
+    ui_->labelWordsPerMin->setText(QString::number(words_per_min) + " / " +
+                                   QString::number(previousWordsPerMin_));
 }
