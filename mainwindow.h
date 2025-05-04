@@ -12,6 +12,7 @@
 #include <QScrollBar>
 #include <QString>
 #include <QTimer>
+#include <QVector>
 #include "winwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -51,8 +52,8 @@ class MainWindow : public QMainWindow {
     QTimer* timerUpdateParametrs_;
 
     Language language_ = kEnglish;
-    QHash<int, QVector<char>> keysUpper_;
-    QHash<int, QVector<char>> keysLower_;
+    QHash<Qt::Key, QVector<QChar>> keysUpper_;
+    QHash<Qt::Key, QVector<QChar>> keysLower_;
 
     WinWindow* winwindow_;
 
