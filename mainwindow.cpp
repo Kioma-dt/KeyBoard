@@ -664,7 +664,7 @@ void MainWindow::changeKeyboardLanguage() {
         Qt::Key key = i.key();
         QString upper = i.value();
         QString lower = keysLower_.value(key);
-        QTextEdit* textEdit = this->keyToUi(key);
+        QTextEdit* text_edit = this->keyToUi(key);
 
         QString temp_text;
         if (upper == lower.toUpper()) {
@@ -685,7 +685,7 @@ void MainWindow::changeKeyboardLanguage() {
                             .arg(lower, upper);
         }
 
-        textEdit->setText(temp_text);
+        text_edit->setText(temp_text);
     }
 }
 

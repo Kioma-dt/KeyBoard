@@ -548,6 +548,7 @@ public:
         comboBoxLanguage->addItem(QString());
         comboBoxLanguage->setObjectName("comboBoxLanguage");
         comboBoxLanguage->setGeometry(QRect(20, 110, 101, 31));
+        comboBoxLanguage->setFocusPolicy(Qt::NoFocus);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");

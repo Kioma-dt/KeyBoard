@@ -1865,6 +1865,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <height>31</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <item>
      <property name="text">
       <string>English</string>
