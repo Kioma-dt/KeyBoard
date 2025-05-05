@@ -48,6 +48,14 @@ MainWindow::MainWindow(QWidget* parent)
     connect(winwindow_, &WinWindow::RepeatTheSame, this,
             &MainWindow::ClearInput);
     connect(winwindow_, &WinWindow::TryNew, this, &MainWindow::OpenFile);
+
+    timerUpdateLanguage_ = new QTimer(this);
+    connect(timerUpdateLanguage_, &QTimer::timeout, this,
+            &MainWindow::UpdateLanguageSlot);
+    timerUpdateLanguage_->start(hundread_);
+    this->initLanguages();
+    keysUpper_ = enKeysUpper_;
+    keysLower_ = enKeysLower_;
 }
 
 MainWindow::~MainWindow() {
@@ -57,290 +65,218 @@ MainWindow::~MainWindow() {
 void MainWindow::keyPressEvent(QKeyEvent* event) {
     QTextEdit* pressed = nullptr;
 
-    switch (event->key()) {
-        case Qt::Key_Q: {
-            ui_->keyQ->setPalette(pressedKey_);
-            pressed = ui_->keyQ;
-            break;
-        }
-        case Qt::Key_W: {
-            ui_->keyW->setPalette(pressedKey_);
-            pressed = ui_->keyW;
-            break;
-        }
-        case Qt::Key_E: {
-            ui_->keyE->setPalette(pressedKey_);
-            pressed = ui_->keyE;
-            break;
-        }
-        case Qt::Key_R: {
-            ui_->keyR->setPalette(pressedKey_);
-            pressed = ui_->keyR;
-            break;
-        }
-        case Qt::Key_T: {
-            ui_->keyT->setPalette(pressedKey_);
-            pressed = ui_->keyT;
-            break;
-        }
-        case Qt::Key_Y: {
-            ui_->keyY->setPalette(pressedKey_);
-            pressed = ui_->keyY;
-            break;
-        }
-        case Qt::Key_U: {
-            ui_->keyU->setPalette(pressedKey_);
-            pressed = ui_->keyU;
-            break;
-        }
-        case Qt::Key_I: {
-            ui_->keyI->setPalette(pressedKey_);
-            pressed = ui_->keyI;
-            break;
-        }
-        case Qt::Key_O: {
-            ui_->keyO->setPalette(pressedKey_);
-            pressed = ui_->keyO;
-            break;
-        }
-        case Qt::Key_P: {
-            ui_->keyP->setPalette(pressedKey_);
-            pressed = ui_->keyP;
-            break;
-        }
-        case Qt::Key_BraceLeft:
-        case Qt::Key_BracketLeft: {
-            ui_->keySqrBrackL->setPalette(pressedKey_);
-            pressed = ui_->keySqrBrackL;
-            break;
-        }
-        case Qt::Key_BraceRight:
-        case Qt::Key_BracketRight: {
-            ui_->keySqrBrackR->setPalette(pressedKey_);
-            pressed = ui_->keySqrBrackR;
-            break;
-        }
-        case Qt::Key_Bar:
-        case Qt::Key_Backslash: {
-            ui_->keyRevSlash->setPalette(pressedKey_);
-            pressed = ui_->keyRevSlash;
-            break;
-        }
-        case Qt::Key_A: {
-            ui_->keyA->setPalette(pressedKey_);
-            pressed = ui_->keyA;
-            break;
-        }
-        case Qt::Key_S: {
-            ui_->keyS->setPalette(pressedKey_);
-            pressed = ui_->keyS;
-            break;
-        }
-        case Qt::Key_D: {
-            ui_->keyD->setPalette(pressedKey_);
-            pressed = ui_->keyD;
-            break;
-        }
-        case Qt::Key_F: {
-            ui_->keyF->setPalette(pressedKey_);
-            pressed = ui_->keyF;
-            break;
-        }
-        case Qt::Key_G: {
-            ui_->keyG->setPalette(pressedKey_);
-            pressed = ui_->keyG;
-            break;
-        }
-        case Qt::Key_H: {
-            ui_->keyH->setPalette(pressedKey_);
-            pressed = ui_->keyH;
-            break;
-        }
-        case Qt::Key_J: {
-            ui_->keyJ->setPalette(pressedKey_);
-            pressed = ui_->keyJ;
-            break;
-        }
-        case Qt::Key_K: {
-            ui_->keyK->setPalette(pressedKey_);
-            pressed = ui_->keyK;
-            break;
-        }
-        case Qt::Key_L: {
-            ui_->keyL->setPalette(pressedKey_);
-            pressed = ui_->keyL;
-            break;
-        }
-        case Qt::Key_Colon:
-        case Qt::Key_Semicolon: {
-            ui_->keySemicolon->setPalette(pressedKey_);
-            pressed = ui_->keySemicolon;
-            break;
-        }
-        case Qt::Key_Apostrophe:
-        case Qt::Key_QuoteDbl: {
-            ui_->keyQuote->setPalette(pressedKey_);
-            pressed = ui_->keyQuote;
-            break;
-        }
-        case Qt::Key_Z: {
-            ui_->keyZ->setPalette(pressedKey_);
-            pressed = ui_->keyZ;
-            break;
-        }
-        case Qt::Key_X: {
-            ui_->keyX->setPalette(pressedKey_);
-            pressed = ui_->keyX;
-            break;
-        }
-        case Qt::Key_C: {
-            ui_->keyC->setPalette(pressedKey_);
-            pressed = ui_->keyC;
-            break;
-        }
-        case Qt::Key_V: {
-            ui_->keyV->setPalette(pressedKey_);
-            pressed = ui_->keyV;
-            break;
-        }
-        case Qt::Key_B: {
-            ui_->keyB->setPalette(pressedKey_);
-            pressed = ui_->keyB;
-            break;
-        }
-        case Qt::Key_N: {
-            ui_->keyN->setPalette(pressedKey_);
-            pressed = ui_->keyN;
-            break;
-        }
-        case Qt::Key_M: {
-            ui_->keyM->setPalette(pressedKey_);
-            pressed = ui_->keyM;
-            break;
-        }
-        case Qt::Key_Less:
-        case Qt::Key_Comma: {
-            ui_->keyComma->setPalette(pressedKey_);
-            pressed = ui_->keyComma;
-            break;
-        }
-        case Qt::Key_Greater:
-        case Qt::Key_Period: {
-            ui_->keyDot->setPalette(pressedKey_);
-            pressed = ui_->keyDot;
-            break;
-        }
-        case Qt::Key_Slash:
-        case Qt::Key_Question: {
-            ui_->keySlash->setPalette(pressedKey_);
-            pressed = ui_->keySlash;
-            break;
-        }
-        case Qt::Key_AsciiTilde:
-        case Qt::Key_QuoteLeft: {
-            ui_->keyQuoteLeft->setPalette(pressedKey_);
-            pressed = ui_->keyQuoteLeft;
-            break;
-        }
-        case Qt::Key_Exclam:
-        case Qt::Key_1: {
-            ui_->key1->setPalette(pressedKey_);
-            pressed = ui_->key1;
-            break;
-        }
-        case Qt::Key_At:
-        case Qt::Key_2: {
-            ui_->key2->setPalette(pressedKey_);
-            pressed = ui_->key2;
-            break;
-        }
-        case Qt::Key_NumberSign:
-        case Qt::Key_3: {
-            ui_->key3->setPalette(pressedKey_);
-            pressed = ui_->key3;
-            break;
-        }
-        case Qt::Key_Dollar:
-        case Qt::Key_4: {
-            ui_->key4->setPalette(pressedKey_);
-            pressed = ui_->key4;
-            break;
-        }
-        case Qt::Key_Percent:
-        case Qt::Key_5: {
-            ui_->key5->setPalette(pressedKey_);
-            pressed = ui_->key5;
-            break;
-        }
-        case Qt::Key_AsciiCircum:
-        case Qt::Key_6: {
-            ui_->key6->setPalette(pressedKey_);
-            pressed = ui_->key6;
-            break;
-        }
-        case Qt::Key_Ampersand:
-        case Qt::Key_7: {
-            ui_->key7->setPalette(pressedKey_);
-            pressed = ui_->key7;
-            break;
-        }
-        case Qt::Key_Asterisk:
-        case Qt::Key_8: {
-            ui_->key8->setPalette(pressedKey_);
-            pressed = ui_->key8;
-            break;
-        }
-        case Qt::Key_ParenLeft:
-        case Qt::Key_9: {
-            ui_->key9->setPalette(pressedKey_);
-            pressed = ui_->key9;
-            break;
-        }
-        case Qt::Key_ParenRight:
-        case Qt::Key_0: {
-            ui_->key0->setPalette(pressedKey_);
-            pressed = ui_->key0;
-            break;
-        }
-        case Qt::Key_Underscore:
-        case Qt::Key_Minus: {
-            ui_->keyMinus->setPalette(pressedKey_);
-            pressed = ui_->keyMinus;
-            break;
-        }
-        case Qt::Key_Plus:
-        case Qt::Key_Equal: {
-            ui_->keyEqual->setPalette(pressedKey_);
-            pressed = ui_->keyEqual;
-            break;
-        }
-        case Qt::Key_Backspace: {
-            ui_->keyBackSpace->setPalette(pressedKey_);
-            userInput_.chop(1);
-            pressed = ui_->keyBackSpace;
-            break;
-        }
-        case Qt::Key_Shift: {
-            ui_->keyShiftL->setPalette(pressedKey_);
-            pressed = ui_->keyShiftL;
-            break;
-        }
-        case Qt::Key_CapsLock: {
-            ui_->keyCaps->setPalette(pressedKey_);
-            pressed = ui_->keyCaps;
-            break;
-        }
-        case Qt::Key_Space: {
-            ui_->keySpace->setPalette(pressedKey_);
-            pressed = ui_->keySpace;
-            break;
-        }
-        case Qt::Key_Return: {
-            ui_->keyEnter->setPalette(pressedKey_);
-            userInput_.append('\n');
-            pressed = ui_->keyEnter;
-            break;
-        }
+    QString key = event->text();
+
+    if (key == keysUpper_.value(Qt::Key_Q) ||
+        key == keysLower_.value(Qt::Key_Q)) {
+        ui_->keyQ->setPalette(pressedKey_);
+        pressed = ui_->keyQ;
+    } else if (key == keysUpper_.value(Qt::Key_W) ||
+               key == keysLower_.value(Qt::Key_W)) {
+        ui_->keyW->setPalette(pressedKey_);
+        pressed = ui_->keyW;
+    } else if (key == keysUpper_.value(Qt::Key_E) ||
+               key == keysLower_.value(Qt::Key_E)) {
+        ui_->keyE->setPalette(pressedKey_);
+        pressed = ui_->keyE;
+    } else if (key == keysUpper_.value(Qt::Key_R) ||
+               key == keysLower_.value(Qt::Key_R)) {
+        ui_->keyR->setPalette(pressedKey_);
+        pressed = ui_->keyR;
+    } else if (key == keysUpper_.value(Qt::Key_T) ||
+               key == keysLower_.value(Qt::Key_T)) {
+        ui_->keyT->setPalette(pressedKey_);
+        pressed = ui_->keyT;
+    } else if (key == keysUpper_.value(Qt::Key_Y) ||
+               key == keysLower_.value(Qt::Key_Y)) {
+        ui_->keyY->setPalette(pressedKey_);
+        pressed = ui_->keyY;
+    } else if (key == keysUpper_.value(Qt::Key_U) ||
+               key == keysLower_.value(Qt::Key_U)) {
+        ui_->keyU->setPalette(pressedKey_);
+        pressed = ui_->keyU;
+    } else if (key == keysUpper_.value(Qt::Key_I) ||
+               key == keysLower_.value(Qt::Key_I)) {
+        ui_->keyI->setPalette(pressedKey_);
+        pressed = ui_->keyI;
+    } else if (key == keysUpper_.value(Qt::Key_O) ||
+               key == keysLower_.value(Qt::Key_O)) {
+        ui_->keyO->setPalette(pressedKey_);
+        pressed = ui_->keyO;
+    } else if (key == keysUpper_.value(Qt::Key_P) ||
+               key == keysLower_.value(Qt::Key_P)) {
+        ui_->keyP->setPalette(pressedKey_);
+        pressed = ui_->keyP;
+    } else if (key == keysUpper_.value(Qt::Key_BracketLeft) ||
+               key == keysLower_.value(Qt::Key_BracketLeft)) {
+        ui_->keyBracketLeft->setPalette(pressedKey_);
+        pressed = ui_->keyBracketLeft;
+    } else if (key == keysUpper_.value(Qt::Key_BracketRight) ||
+               key == keysLower_.value(Qt::Key_BracketRight)) {
+        ui_->keyBracketRight->setPalette(pressedKey_);
+        pressed = ui_->keyBracketRight;
+    } else if (key == keysUpper_.value(Qt::Key_Backslash) ||
+               key == keysLower_.value(Qt::Key_Backslash)) {
+        ui_->keyBackSlash->setPalette(pressedKey_);
+        pressed = ui_->keyBackSlash;
+    } else if (key == keysUpper_.value(Qt::Key_A) ||
+               key == keysLower_.value(Qt::Key_A)) {
+        ui_->keyA->setPalette(pressedKey_);
+        pressed = ui_->keyA;
+    } else if (key == keysUpper_.value(Qt::Key_S) ||
+               key == keysLower_.value(Qt::Key_S)) {
+        ui_->keyS->setPalette(pressedKey_);
+        pressed = ui_->keyS;
+    } else if (key == keysUpper_.value(Qt::Key_D) ||
+               key == keysLower_.value(Qt::Key_D)) {
+        ui_->keyD->setPalette(pressedKey_);
+        pressed = ui_->keyD;
+    } else if (key == keysUpper_.value(Qt::Key_F) ||
+               key == keysLower_.value(Qt::Key_F)) {
+        ui_->keyF->setPalette(pressedKey_);
+        pressed = ui_->keyF;
+    } else if (key == keysUpper_.value(Qt::Key_G) ||
+               key == keysLower_.value(Qt::Key_G)) {
+        ui_->keyG->setPalette(pressedKey_);
+        pressed = ui_->keyG;
+    } else if (key == keysUpper_.value(Qt::Key_H) ||
+               key == keysLower_.value(Qt::Key_H)) {
+        ui_->keyH->setPalette(pressedKey_);
+        pressed = ui_->keyH;
+    } else if (key == keysUpper_.value(Qt::Key_J) ||
+               key == keysLower_.value(Qt::Key_J)) {
+        ui_->keyJ->setPalette(pressedKey_);
+        pressed = ui_->keyJ;
+    } else if (key == keysUpper_.value(Qt::Key_K) ||
+               key == keysLower_.value(Qt::Key_K)) {
+        ui_->keyK->setPalette(pressedKey_);
+        pressed = ui_->keyK;
+    } else if (key == keysUpper_.value(Qt::Key_L) ||
+               key == keysLower_.value(Qt::Key_L)) {
+        ui_->keyL->setPalette(pressedKey_);
+        pressed = ui_->keyL;
+    } else if (key == keysUpper_.value(Qt::Key_Semicolon) ||
+               key == keysLower_.value(Qt::Key_Semicolon)) {
+        ui_->keySemicolon->setPalette(pressedKey_);
+        pressed = ui_->keySemicolon;
+    } else if (key == keysUpper_.value(Qt::Key_Apostrophe) ||
+               key == keysLower_.value(Qt::Key_Apostrophe)) {
+        ui_->keyApostrophe->setPalette(pressedKey_);
+        pressed = ui_->keyApostrophe;
+    } else if (key == keysUpper_.value(Qt::Key_Z) ||
+               key == keysLower_.value(Qt::Key_Z)) {
+        ui_->keyZ->setPalette(pressedKey_);
+        pressed = ui_->keyZ;
+    } else if (key == keysUpper_.value(Qt::Key_X) ||
+               key == keysLower_.value(Qt::Key_X)) {
+        ui_->keyX->setPalette(pressedKey_);
+        pressed = ui_->keyX;
+    } else if (key == keysUpper_.value(Qt::Key_C) ||
+               key == keysLower_.value(Qt::Key_C)) {
+        ui_->keyC->setPalette(pressedKey_);
+        pressed = ui_->keyC;
+    } else if (key == keysUpper_.value(Qt::Key_V) ||
+               key == keysLower_.value(Qt::Key_V)) {
+        ui_->keyV->setPalette(pressedKey_);
+        pressed = ui_->keyV;
+    } else if (key == keysUpper_.value(Qt::Key_B) ||
+               key == keysLower_.value(Qt::Key_B)) {
+        ui_->keyB->setPalette(pressedKey_);
+        pressed = ui_->keyB;
+    } else if (key == keysUpper_.value(Qt::Key_N) ||
+               key == keysLower_.value(Qt::Key_N)) {
+        ui_->keyN->setPalette(pressedKey_);
+        pressed = ui_->keyN;
+    } else if (key == keysUpper_.value(Qt::Key_M) ||
+               key == keysLower_.value(Qt::Key_M)) {
+        ui_->keyM->setPalette(pressedKey_);
+        pressed = ui_->keyM;
+    } else if (key == keysUpper_.value(Qt::Key_Comma) ||
+               key == keysLower_.value(Qt::Key_Comma)) {
+        ui_->keyComma->setPalette(pressedKey_);
+        pressed = ui_->keyComma;
+    } else if (key == keysUpper_.value(Qt::Key_Period) ||
+               key == keysLower_.value(Qt::Key_Period)) {
+        ui_->keyPeriod->setPalette(pressedKey_);
+        pressed = ui_->keyPeriod;
+    } else if (key == keysUpper_.value(Qt::Key_Slash) ||
+               key == keysLower_.value(Qt::Key_Slash)) {
+        ui_->keySlash->setPalette(pressedKey_);
+        pressed = ui_->keySlash;
+    } else if (key == keysUpper_.value(Qt::Key_QuoteLeft) ||
+               key == keysLower_.value(Qt::Key_QuoteLeft)) {
+        ui_->keyQuoteLeft->setPalette(pressedKey_);
+        pressed = ui_->keyQuoteLeft;
+    } else if (key == keysUpper_.value(Qt::Key_1) ||
+               key == keysLower_.value(Qt::Key_1)) {
+        ui_->key1->setPalette(pressedKey_);
+        pressed = ui_->key1;
+    } else if (key == keysUpper_.value(Qt::Key_2) ||
+               key == keysLower_.value(Qt::Key_2)) {
+        ui_->key2->setPalette(pressedKey_);
+        pressed = ui_->key2;
+    } else if (key == keysUpper_.value(Qt::Key_3) ||
+               key == keysLower_.value(Qt::Key_3)) {
+        ui_->key3->setPalette(pressedKey_);
+        pressed = ui_->key3;
+    } else if (key == keysUpper_.value(Qt::Key_4) ||
+               key == keysLower_.value(Qt::Key_4)) {
+        ui_->key4->setPalette(pressedKey_);
+        pressed = ui_->key4;
+    } else if (key == keysUpper_.value(Qt::Key_5) ||
+               key == keysLower_.value(Qt::Key_5)) {
+        ui_->key5->setPalette(pressedKey_);
+        pressed = ui_->key5;
+    } else if (key == keysUpper_.value(Qt::Key_6) ||
+               key == keysLower_.value(Qt::Key_6)) {
+        ui_->key6->setPalette(pressedKey_);
+        pressed = ui_->key6;
+    } else if (key == keysUpper_.value(Qt::Key_7) ||
+               key == keysLower_.value(Qt::Key_7)) {
+        ui_->key7->setPalette(pressedKey_);
+        pressed = ui_->key7;
+    } else if (key == keysUpper_.value(Qt::Key_8) ||
+               key == keysLower_.value(Qt::Key_8)) {
+        ui_->key8->setPalette(pressedKey_);
+        pressed = ui_->key8;
+    } else if (key == keysUpper_.value(Qt::Key_9) ||
+               key == keysLower_.value(Qt::Key_9)) {
+        ui_->key9->setPalette(pressedKey_);
+        pressed = ui_->key9;
+    } else if (key == keysUpper_.value(Qt::Key_0) ||
+               key == keysLower_.value(Qt::Key_0)) {
+        ui_->key0->setPalette(pressedKey_);
+        pressed = ui_->key0;
+    } else if (key == keysUpper_.value(Qt::Key_Minus) ||
+               key == keysLower_.value(Qt::Key_Minus)) {
+        ui_->keyMinus->setPalette(pressedKey_);
+        pressed = ui_->keyMinus;
+    } else if (key == keysUpper_.value(Qt::Key_Equal) ||
+               key == keysLower_.value(Qt::Key_Equal)) {
+        ui_->keyEqual->setPalette(pressedKey_);
+        pressed = ui_->keyEqual;
+    }
+
+    else if (event->key() == Qt::Key_Backspace) {
+        ui_->keyBackSpace->setPalette(pressedKey_);
+        userInput_.chop(1);
+        pressed = ui_->keyBackSpace;
+    } else if (event->key() == Qt::Key_Shift) {
+        ui_->keyShiftL->setPalette(pressedKey_);
+        pressed = ui_->keyShiftL;
+    } else if (event->key() == Qt::Key_CapsLock) {
+        ui_->keyCaps->setPalette(pressedKey_);
+        pressed = ui_->keyCaps;
+    } else if (event->key() == Qt::Key_Space) {
+        ui_->keySpace->setPalette(pressedKey_);
+        pressed = ui_->keySpace;
+    } else if (event->key() == Qt::Key_Return) {
+        ui_->keyEnter->setPalette(pressedKey_);
+        userInput_.append('\n');
+        pressed = ui_->keyEnter;
+    } else if (event->key() == Qt::Key_Tab) {
+        ui_->keyTab->setPalette(pressedKey_);
+        pressed = ui_->keyTab;
     }
 
 
@@ -363,6 +299,109 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
     this->setFocus();
 }
 
+QTextEdit* MainWindow::keyToUi(Qt::Key key) {
+
+
+    switch (key) {
+        case Qt::Key_Q:
+            return ui_->keyQ;
+        case Qt::Key_W:
+            return ui_->keyW;
+        case Qt::Key_E:
+            return ui_->keyE;
+        case Qt::Key_R:
+            return ui_->keyR;
+        case Qt::Key_T:
+            return ui_->keyT;
+        case Qt::Key_Y:
+            return ui_->keyY;
+        case Qt::Key_U:
+            return ui_->keyU;
+        case Qt::Key_I:
+            return ui_->keyI;
+        case Qt::Key_O:
+            return ui_->keyO;
+        case Qt::Key_P:
+            return ui_->keyP;
+        case Qt::Key_A:
+            return ui_->keyA;
+        case Qt::Key_S:
+            return ui_->keyS;
+        case Qt::Key_D:
+            return ui_->keyD;
+        case Qt::Key_F:
+            return ui_->keyF;
+        case Qt::Key_G:
+            return ui_->keyG;
+        case Qt::Key_H:
+            return ui_->keyH;
+        case Qt::Key_J:
+            return ui_->keyJ;
+        case Qt::Key_K:
+            return ui_->keyK;
+        case Qt::Key_L:
+            return ui_->keyL;
+        case Qt::Key_Z:
+            return ui_->keyZ;
+        case Qt::Key_X:
+            return ui_->keyX;
+        case Qt::Key_C:
+            return ui_->keyC;
+        case Qt::Key_V:
+            return ui_->keyV;
+        case Qt::Key_B:
+            return ui_->keyB;
+        case Qt::Key_N:
+            return ui_->keyN;
+        case Qt::Key_M:
+            return ui_->keyM;
+        case Qt::Key_1:
+            return ui_->key1;
+        case Qt::Key_2:
+            return ui_->key2;
+        case Qt::Key_3:
+            return ui_->key3;
+        case Qt::Key_4:
+            return ui_->key4;
+        case Qt::Key_5:
+            return ui_->key5;
+        case Qt::Key_6:
+            return ui_->key6;
+        case Qt::Key_7:
+            return ui_->key7;
+        case Qt::Key_8:
+            return ui_->key8;
+        case Qt::Key_9:
+            return ui_->key9;
+        case Qt::Key_0:
+            return ui_->key0;
+        case Qt::Key_Minus:
+            return ui_->keyMinus;
+        case Qt::Key_Equal:
+            return ui_->keyEqual;
+        case Qt::Key_BracketLeft:
+            return ui_->keyBracketLeft;
+        case Qt::Key_BracketRight:
+            return ui_->keyBracketRight;
+        case Qt::Key_Backslash:
+            return ui_->keyBackSlash;
+        case Qt::Key_Semicolon:
+            return ui_->keySemicolon;
+        case Qt::Key_Apostrophe:
+            return ui_->keyApostrophe;
+        case Qt::Key_Comma:
+            return ui_->keyComma;
+        case Qt::Key_Period:
+            return ui_->keyPeriod;
+        case Qt::Key_Slash:
+            return ui_->keySlash;
+        case Qt::Key_QuoteLeft:
+            return ui_->keyQuoteLeft;
+        default:
+            return nullptr;
+    }
+}
+
 void MainWindow::changeTaskText(const QString& newText) {
     taskText_ = newText;
     ui_->taskText->setText(taskText_);
@@ -382,12 +421,7 @@ void MainWindow::checkInput() {
         }
     }
 
-    QString rest;
-
-    for (int i = right_characters; i < taskText_.size(); i++) {
-        rest.push_back(taskText_[i]);
-    }
-    ui_->taskText->setText(rest);
+    ui_->taskText->setText(taskText_.mid(right_characters));
 
     if (right_characters == taskText_.size() && taskText_.size() != 0) {
         timerUpdateParametrs_->stop();
@@ -470,259 +504,189 @@ void MainWindow::clearParametrs() {
 }
 
 void MainWindow::initLanguages() {
+    enKeysUpper_ = QHash<Qt::Key, QString>{
+        {Qt::Key_Q, "Q"},			{Qt::Key_W, "W"},
+        {Qt::Key_E, "E"},			{Qt::Key_R, "R"},
+        {Qt::Key_T, "T"},			{Qt::Key_Y, "Y"},
+        {Qt::Key_U, "U"},			{Qt::Key_I, "I"},
+        {Qt::Key_O, "O"},			{Qt::Key_P, "P"},
+        {Qt::Key_BracketLeft, "{"}, {Qt::Key_BracketRight, "}"},
+        {Qt::Key_Backslash, "|"},	{Qt::Key_A, "A"},
+        {Qt::Key_S, "S"},			{Qt::Key_D, "D"},
+        {Qt::Key_F, "F"},			{Qt::Key_G, "G"},
+        {Qt::Key_H, "H"},			{Qt::Key_J, "J"},
+        {Qt::Key_K, "K"},			{Qt::Key_L, "L"},
+        {Qt::Key_Semicolon, ":"},	{Qt::Key_Apostrophe, "\""},
+        {Qt::Key_Z, "Z"},			{Qt::Key_X, "X"},
+        {Qt::Key_C, "C"},			{Qt::Key_V, "V"},
+        {Qt::Key_B, "B"},			{Qt::Key_N, "N"},
+        {Qt::Key_M, "M"},			{Qt::Key_Comma, "<"},
+        {Qt::Key_Period, ">"},		{Qt::Key_Slash, "?"},
+        {Qt::Key_QuoteLeft, "~"},	{Qt::Key_1, "!"},
+        {Qt::Key_2, "@"},			{Qt::Key_3, "#"},
+        {Qt::Key_4, "$"},			{Qt::Key_5, "%"},
+        {Qt::Key_6, "^"},			{Qt::Key_7, "&"},
+        {Qt::Key_8, "*"},			{Qt::Key_9, "("},
+        {Qt::Key_0, ")"},			{Qt::Key_Minus, "_"},
+        {Qt::Key_Equal, "+"}};
+    enKeysLower_ = QHash<Qt::Key, QString>{
+        {Qt::Key_1, "1"},
+        {Qt::Key_2, "2"},
+        {Qt::Key_3, "3"},
+        {Qt::Key_4, "4"},
+        {Qt::Key_5, "5"},
+        {Qt::Key_6, "6"},
+        {Qt::Key_7, "7"},
+        {Qt::Key_8, "8"},
+        {Qt::Key_9, "9"},
+        {Qt::Key_0, "0"},
+        {Qt::Key_Minus, "-"},
+        {Qt::Key_Equal, "="},
 
+        {Qt::Key_QuoteLeft, "`"},
+        {Qt::Key_BracketLeft, "["},
+        {Qt::Key_BracketRight, "]"},
+        {Qt::Key_Backslash, "\\"},
 
-    // case Qt::Key_W: {
-    //     ui_->keyW->setPalette(pressedKey_);
-    //     pressed = ui_->keyW;
-    //     break;
-    // }
-    // case Qt::Key_E: {
-    //     ui_->keyE->setPalette(pressedKey_);
-    //     pressed = ui_->keyE;
-    //     break;
-    // }
-    // case Qt::Key_R: {
-    //     ui_->keyR->setPalette(pressedKey_);
-    //     pressed = ui_->keyR;
-    //     break;
-    // }
-    // case Qt::Key_T: {
-    //     ui_->keyT->setPalette(pressedKey_);
-    //     pressed = ui_->keyT;
-    //     break;
-    // }
-    // case Qt::Key_Y: {
-    //     ui_->keyY->setPalette(pressedKey_);
-    //     pressed = ui_->keyY;
-    //     break;
-    // }
-    // case Qt::Key_U: {
-    //     ui_->keyU->setPalette(pressedKey_);
-    //     pressed = ui_->keyU;
-    //     break;
-    // }
-    // case Qt::Key_I: {
-    //     ui_->keyI->setPalette(pressedKey_);
-    //     pressed = ui_->keyI;
-    //     break;
-    // }
-    // case Qt::Key_O: {
-    //     ui_->keyO->setPalette(pressedKey_);
-    //     pressed = ui_->keyO;
-    //     break;
-    // }
-    // case Qt::Key_P: {
-    //     ui_->keyP->setPalette(pressedKey_);
-    //     pressed = ui_->keyP;
-    //     break;
-    // }
-    // case Qt::Key_BraceLeft:
-    // case Qt::Key_BracketLeft: {
-    //     ui_->keySqrBrackL->setPalette(pressedKey_);
-    //     pressed = ui_->keySqrBrackL;
-    //     break;
-    // }
-    // case Qt::Key_BraceRight:
-    // case Qt::Key_BracketRight: {
-    //     ui_->keySqrBrackR->setPalette(pressedKey_);
-    //     pressed = ui_->keySqrBrackR;
-    //     break;
-    // }
-    // case Qt::Key_Bar:
-    // case Qt::Key_Backslash: {
-    //     ui_->keyRevSlash->setPalette(pressedKey_);
-    //     pressed = ui_->keyRevSlash;
-    //     break;
-    // }
-    // case Qt::Key_A: {
-    //     ui_->keyA->setPalette(pressedKey_);
-    //     pressed = ui_->keyA;
-    //     break;
-    // }
-    // case Qt::Key_S: {
-    //     ui_->keyS->setPalette(pressedKey_);
-    //     pressed = ui_->keyS;
-    //     break;
-    // }
-    // case Qt::Key_D: {
-    //     ui_->keyD->setPalette(pressedKey_);
-    //     pressed = ui_->keyD;
-    //     break;
-    // }
-    // case Qt::Key_F: {
-    //     ui_->keyF->setPalette(pressedKey_);
-    //     pressed = ui_->keyF;
-    //     break;
-    // }
-    // case Qt::Key_G: {
-    //     ui_->keyG->setPalette(pressedKey_);
-    //     pressed = ui_->keyG;
-    //     break;
-    // }
-    // case Qt::Key_H: {
-    //     ui_->keyH->setPalette(pressedKey_);
-    //     pressed = ui_->keyH;
-    //     break;
-    // }
-    // case Qt::Key_J: {
-    //     ui_->keyJ->setPalette(pressedKey_);
-    //     pressed = ui_->keyJ;
-    //     break;
-    // }
-    // case Qt::Key_K: {
-    //     ui_->keyK->setPalette(pressedKey_);
-    //     pressed = ui_->keyK;
-    //     break;
-    // }
-    // case Qt::Key_L: {
-    //     ui_->keyL->setPalette(pressedKey_);
-    //     pressed = ui_->keyL;
-    //     break;
-    // }
-    // case Qt::Key_Colon:
-    // case Qt::Key_Semicolon: {
-    //     ui_->keySemicolon->setPalette(pressedKey_);
-    //     pressed = ui_->keySemicolon;
-    //     break;
-    // }
-    // case Qt::Key_Apostrophe:
-    // case Qt::Key_QuoteDbl: {
-    //     ui_->keyQuote->setPalette(pressedKey_);
-    //     pressed = ui_->keyQuote;
-    //     break;
-    // }
-    // case Qt::Key_Z: {
-    //     ui_->keyZ->setPalette(pressedKey_);
-    //     pressed = ui_->keyZ;
-    //     break;
-    // }
-    // case Qt::Key_X: {
-    //     ui_->keyX->setPalette(pressedKey_);
-    //     pressed = ui_->keyX;
-    //     break;
-    // }
-    // case Qt::Key_C: {
-    //     ui_->keyC->setPalette(pressedKey_);
-    //     pressed = ui_->keyC;
-    //     break;
-    // }
-    // case Qt::Key_V: {
-    //     ui_->keyV->setPalette(pressedKey_);
-    //     pressed = ui_->keyV;
-    //     break;
-    // }
-    // case Qt::Key_B: {
-    //     ui_->keyB->setPalette(pressedKey_);
-    //     pressed = ui_->keyB;
-    //     break;
-    // }
-    // case Qt::Key_N: {
-    //     ui_->keyN->setPalette(pressedKey_);
-    //     pressed = ui_->keyN;
-    //     break;
-    // }
-    // case Qt::Key_M: {
-    //     ui_->keyM->setPalette(pressedKey_);
-    //     pressed = ui_->keyM;
-    //     break;
-    // }
-    // case Qt::Key_Less:
-    // case Qt::Key_Comma: {
-    //     ui_->keyComma->setPalette(pressedKey_);
-    //     pressed = ui_->keyComma;
-    //     break;
-    // }
-    // case Qt::Key_Greater:
-    // case Qt::Key_Period: {
-    //     ui_->keyDot->setPalette(pressedKey_);
-    //     pressed = ui_->keyDot;
-    //     break;
-    // }
-    // case Qt::Key_Slash:
-    // case Qt::Key_Question: {
-    //     ui_->keySlash->setPalette(pressedKey_);
-    //     pressed = ui_->keySlash;
-    //     break;
-    // }
-    // case Qt::Key_AsciiTilde:
-    // case Qt::Key_QuoteLeft: {
-    //     ui_->keyQuoteLeft->setPalette(pressedKey_);
-    //     pressed = ui_->keyQuoteLeft;
-    //     break;
-    // }
-    // case Qt::Key_Exclam:
-    // case Qt::Key_1: {
-    //     ui_->key1->setPalette(pressedKey_);
-    //     pressed = ui_->key1;
-    //     break;
-    // }
-    // case Qt::Key_At:
-    // case Qt::Key_2: {
-    //     ui_->key2->setPalette(pressedKey_);
-    //     pressed = ui_->key2;
-    //     break;
-    // }
-    // case Qt::Key_NumberSign:
-    // case Qt::Key_3: {
-    //     ui_->key3->setPalette(pressedKey_);
-    //     pressed = ui_->key3;
-    //     break;
-    // }
-    // case Qt::Key_Dollar:
-    // case Qt::Key_4: {
-    //     ui_->key4->setPalette(pressedKey_);
-    //     pressed = ui_->key4;
-    //     break;
-    // }
-    // case Qt::Key_Percent:
-    // case Qt::Key_5: {
-    //     ui_->key5->setPalette(pressedKey_);
-    //     pressed = ui_->key5;
-    //     break;
-    // }
-    // case Qt::Key_AsciiCircum:
-    // case Qt::Key_6: {
-    //     ui_->key6->setPalette(pressedKey_);
-    //     pressed = ui_->key6;
-    //     break;
-    // }
-    // case Qt::Key_Ampersand:
-    // case Qt::Key_7: {
-    //     ui_->key7->setPalette(pressedKey_);
-    //     pressed = ui_->key7;
-    //     break;
-    // }
-    // case Qt::Key_Asterisk:
-    // case Qt::Key_8: {
-    //     ui_->key8->setPalette(pressedKey_);
-    //     pressed = ui_->key8;
-    //     break;
-    // }
-    // case Qt::Key_ParenLeft:
-    // case Qt::Key_9: {
-    //     ui_->key9->setPalette(pressedKey_);
-    //     pressed = ui_->key9;
-    //     break;
-    // }
-    // case Qt::Key_ParenRight:
-    // case Qt::Key_0: {
-    //     ui_->key0->setPalette(pressedKey_);
-    //     pressed = ui_->key0;
-    //     break;
-    // }
-    // case Qt::Key_Underscore:
-    // case Qt::Key_Minus: {
-    //     ui_->keyMinus->setPalette(pressedKey_);
-    //     pressed = ui_->keyMinus;
-    //     break;
-    // }
-    // case Qt::Key_Plus:
-    // case Qt::Key_Equal: {
-    //     ui_->keyEqual->setPalette(pressedKey_);
-    //     pressed = ui_->keyEqual;
-    //     break;
-    // }
+        {Qt::Key_Q, "q"},
+        {Qt::Key_W, "w"},
+        {Qt::Key_E, "e"},
+        {Qt::Key_R, "r"},
+        {Qt::Key_T, "t"},
+        {Qt::Key_Y, "y"},
+        {Qt::Key_U, "u"},
+        {Qt::Key_I, "i"},
+        {Qt::Key_O, "o"},
+        {Qt::Key_P, "p"},
+        {Qt::Key_A, "a"},
+        {Qt::Key_S, "s"},
+        {Qt::Key_D, "d"},
+        {Qt::Key_F, "f"},
+        {Qt::Key_G, "g"},
+        {Qt::Key_H, "h"},
+        {Qt::Key_J, "j"},
+        {Qt::Key_K, "k"},
+        {Qt::Key_L, "l"},
+        {Qt::Key_Z, "z"},
+        {Qt::Key_X, "x"},
+        {Qt::Key_C, "c"},
+        {Qt::Key_V, "v"},
+        {Qt::Key_B, "b"},
+        {Qt::Key_N, "n"},
+        {Qt::Key_M, "m"},
+
+        {Qt::Key_Semicolon, ";"},
+        {Qt::Key_Apostrophe, "'"},
+        {Qt::Key_Comma, ","},
+        {Qt::Key_Period, "."},
+        {Qt::Key_Slash, "/"},
+    };
+
+    ruKeysUpper_ = QHash<Qt::Key, QString>{
+        {Qt::Key_Q, "Й"},			{Qt::Key_W, "Ц"},
+        {Qt::Key_E, "У"},			{Qt::Key_R, "К"},
+        {Qt::Key_T, "Е"},			{Qt::Key_Y, "Н"},
+        {Qt::Key_U, "Г"},			{Qt::Key_I, "Ш"},
+        {Qt::Key_O, "Щ"},			{Qt::Key_P, "З"},
+        {Qt::Key_BracketLeft, "Х"}, {Qt::Key_BracketRight, "Ъ"},
+        {Qt::Key_Backslash, "/"},	{Qt::Key_A, "Ф"},
+        {Qt::Key_S, "Ы"},			{Qt::Key_D, "В"},
+        {Qt::Key_F, "А"},			{Qt::Key_G, "П"},
+        {Qt::Key_H, "Р"},			{Qt::Key_J, "О"},
+        {Qt::Key_K, "Л"},			{Qt::Key_L, "Д"},
+        {Qt::Key_Semicolon, "Ж"},	{Qt::Key_Apostrophe, "Э"},
+        {Qt::Key_Z, "Я"},			{Qt::Key_X, "Ч"},
+        {Qt::Key_C, "С"},			{Qt::Key_V, "М"},
+        {Qt::Key_B, "И"},			{Qt::Key_N, "Т"},
+        {Qt::Key_M, "Ь"},			{Qt::Key_Comma, "Б"},
+        {Qt::Key_Period, "Ю"},		{Qt::Key_Slash, ","},
+        {Qt::Key_QuoteLeft, "Ё"},	{Qt::Key_1, "!"},
+        {Qt::Key_2, "\""},			{Qt::Key_3, "№"},
+        {Qt::Key_4, ";"},			{Qt::Key_5, "%"},
+        {Qt::Key_6, ":"},			{Qt::Key_7, "?"},
+        {Qt::Key_8, "*"},			{Qt::Key_9, "("},
+        {Qt::Key_0, ")"},			{Qt::Key_Minus, "_"},
+        {Qt::Key_Equal, "+"}};
+    ruKeysLower_ = QHash<Qt::Key, QString>{{Qt::Key_1, "1"},
+                                           {Qt::Key_2, "2"},
+                                           {Qt::Key_3, "3"},
+                                           {Qt::Key_4, "4"},
+                                           {Qt::Key_5, "5"},
+                                           {Qt::Key_6, "6"},
+                                           {Qt::Key_7, "7"},
+                                           {Qt::Key_8, "8"},
+                                           {Qt::Key_9, "9"},
+                                           {Qt::Key_0, "0"},
+                                           {Qt::Key_Minus, "-"},
+                                           {Qt::Key_Equal, "="},
+
+                                           {Qt::Key_QuoteLeft, "ё"},
+                                           {Qt::Key_BracketLeft, "х"},
+                                           {Qt::Key_BracketRight, "ъ"},
+                                           {Qt::Key_Backslash, "\\"},
+
+                                           {Qt::Key_Q, "й"},
+                                           {Qt::Key_W, "ц"},
+                                           {Qt::Key_E, "у"},
+                                           {Qt::Key_R, "к"},
+                                           {Qt::Key_T, "е"},
+                                           {Qt::Key_Y, "н"},
+                                           {Qt::Key_U, "г"},
+                                           {Qt::Key_I, "ш"},
+                                           {Qt::Key_O, "щ"},
+                                           {Qt::Key_P, "з"},
+                                           {Qt::Key_A, "ф"},
+                                           {Qt::Key_S, "ы"},
+                                           {Qt::Key_D, "в"},
+                                           {Qt::Key_F, "а"},
+                                           {Qt::Key_G, "п"},
+                                           {Qt::Key_H, "р"},
+                                           {Qt::Key_J, "о"},
+                                           {Qt::Key_K, "л"},
+                                           {Qt::Key_L, "д"},
+                                           {Qt::Key_Semicolon, "ж"},
+                                           {Qt::Key_Apostrophe, "э"},
+                                           {Qt::Key_Z, "я"},
+                                           {Qt::Key_X, "ч"},
+                                           {Qt::Key_C, "с"},
+                                           {Qt::Key_V, "м"},
+                                           {Qt::Key_B, "и"},
+                                           {Qt::Key_N, "т"},
+                                           {Qt::Key_M, "ь"},
+                                           {Qt::Key_Comma, "б"},
+                                           {Qt::Key_Period, "ю"},
+                                           {Qt::Key_Slash, "."}};
+}
+
+void MainWindow::changeKeyboardLanguage() {
+
+    for (auto i = keysUpper_.begin(); i != keysUpper_.end(); i++) {
+        Qt::Key key = i.key();
+        QString upper = i.value();
+        QString lower = keysLower_.value(key);
+        QTextEdit* textEdit = this->keyToUi(key);
+
+        QString temp_text;
+        if (upper == lower.toUpper()) {
+            temp_text = QString(
+                            "<div align='center'>"
+                            "<span style='font-size:18pt;'>%1"
+                            "</span>"
+                            "</div>")
+                            .arg(upper);
+        } else {
+            temp_text = QString(
+                            "<div align='center'>"
+                            "<span style='font-size:18pt;'>"
+                            "<sup> %2 </sup>"
+                            "%1"
+                            "</span>"
+                            "</div>")
+                            .arg(lower, upper);
+        }
+
+        textEdit->setText(temp_text);
+    }
 }
 
 void MainWindow::OpenFile() {
@@ -771,4 +735,21 @@ void MainWindow::UpdateParametrsSlot() {
     double words_per_min = inputedWords_ / ellapsedSeconds_ * secondsInMinute_;
     ui_->labelWordsPerMin->setText(QString::number(words_per_min) + " / " +
                                    QString::number(previousWordsPerMin_));
+}
+
+void MainWindow::UpdateLanguageSlot() {
+    QHash<Qt::Key, QString> prev_keys_upper = keysUpper_;
+
+    if (ui_->comboBoxLanguage->currentText() == "English") {
+        keysUpper_ = enKeysUpper_;
+        keysLower_ = enKeysLower_;
+    } else if (ui_->comboBoxLanguage->currentText() == "Русский") {
+        keysUpper_ = ruKeysUpper_;
+        keysLower_ = ruKeysLower_;
+    }
+
+
+    if (prev_keys_upper != keysUpper_) {
+        this->changeKeyboardLanguage();
+    }
 }

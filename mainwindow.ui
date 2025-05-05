@@ -65,7 +65,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QTextEdit" name="keyRevSlash">
+   <widget class="QTextEdit" name="keyBackSlash">
     <property name="geometry">
      <rect>
       <x>1040</x>
@@ -298,6 +298,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <width>161</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="text">
      <string>Open File with Text</string>
@@ -637,7 +640,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QTextEdit" name="keyDot">
+   <widget class="QTextEdit" name="keyPeriod">
     <property name="geometry">
      <rect>
       <x>803</x>
@@ -1021,7 +1024,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QTextEdit" name="keyQuote">
+   <widget class="QTextEdit" name="keyApostrophe">
     <property name="geometry">
      <rect>
       <x>916</x>
@@ -1373,7 +1376,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QTextEdit" name="keySqrBrackL">
+   <widget class="QTextEdit" name="keyBracketLeft">
     <property name="geometry">
      <rect>
       <x>894</x>
@@ -1405,7 +1408,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QTextEdit" name="keySqrBrackR">
+   <widget class="QTextEdit" name="keyBracketRight">
     <property name="geometry">
      <rect>
       <x>965</x>
@@ -1852,6 +1855,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="textInteractionFlags">
      <set>Qt::NoTextInteraction</set>
     </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxLanguage">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>English</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Русский</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

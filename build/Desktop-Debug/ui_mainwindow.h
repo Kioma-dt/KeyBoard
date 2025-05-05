@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -28,7 +29,7 @@ public:
     QWidget *centralwidget;
     QTextEdit *userInput;
     QTextEdit *keyBackSpace;
-    QTextEdit *keyRevSlash;
+    QTextEdit *keyBackSlash;
     QTextEdit *keyEnter;
     QTextEdit *keyShiftR;
     QTextEdit *keyTab;
@@ -57,7 +58,7 @@ public:
     QTextEdit *keyN;
     QTextEdit *keyM;
     QTextEdit *keyComma;
-    QTextEdit *keyDot;
+    QTextEdit *keyPeriod;
     QTextEdit *keySlash;
     QTextEdit *keyA;
     QTextEdit *keyS;
@@ -69,7 +70,7 @@ public:
     QTextEdit *keyK;
     QTextEdit *keyL;
     QTextEdit *keySemicolon;
-    QTextEdit *keyQuote;
+    QTextEdit *keyApostrophe;
     QTextEdit *keyQ;
     QTextEdit *keyW;
     QTextEdit *keyE;
@@ -80,8 +81,8 @@ public:
     QTextEdit *keyI;
     QTextEdit *keyO;
     QTextEdit *keyP;
-    QTextEdit *keySqrBrackL;
-    QTextEdit *keySqrBrackR;
+    QTextEdit *keyBracketLeft;
+    QTextEdit *keyBracketRight;
     QTextEdit *keyQuoteLeft;
     QTextEdit *key1;
     QTextEdit *key2;
@@ -95,6 +96,7 @@ public:
     QTextEdit *key0;
     QTextEdit *keyMinus;
     QTextEdit *keyEqual;
+    QComboBox *comboBoxLanguage;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -118,13 +120,13 @@ public:
         keyBackSpace->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
         keyBackSpace->setFocusPolicy(Qt::NoFocus);
         keyBackSpace->setTextInteractionFlags(Qt::NoTextInteraction);
-        keyRevSlash = new QTextEdit(centralwidget);
-        keyRevSlash->setObjectName("keyRevSlash");
-        keyRevSlash->setGeometry(QRect(1040, 430, 101, 39));
-        keyRevSlash->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
-        keyRevSlash->setFocusPolicy(Qt::NoFocus);
-        keyRevSlash->setReadOnly(true);
-        keyRevSlash->setTextInteractionFlags(Qt::NoTextInteraction);
+        keyBackSlash = new QTextEdit(centralwidget);
+        keyBackSlash->setObjectName("keyBackSlash");
+        keyBackSlash->setGeometry(QRect(1040, 430, 101, 39));
+        keyBackSlash->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
+        keyBackSlash->setFocusPolicy(Qt::NoFocus);
+        keyBackSlash->setReadOnly(true);
+        keyBackSlash->setTextInteractionFlags(Qt::NoTextInteraction);
         keyEnter = new QTextEdit(centralwidget);
         keyEnter->setObjectName("keyEnter");
         keyEnter->setGeometry(QRect(990, 480, 151, 40));
@@ -170,6 +172,7 @@ public:
         buttonOpenFile = new QPushButton(centralwidget);
         buttonOpenFile->setObjectName("buttonOpenFile");
         buttonOpenFile->setGeometry(QRect(20, 20, 161, 31));
+        buttonOpenFile->setFocusPolicy(Qt::NoFocus);
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName("layoutWidget");
         layoutWidget->setGeometry(QRect(230, 30, 281, 31));
@@ -274,13 +277,13 @@ public:
         keyComma->setFocusPolicy(Qt::NoFocus);
         keyComma->setReadOnly(true);
         keyComma->setTextInteractionFlags(Qt::NoTextInteraction);
-        keyDot = new QTextEdit(centralwidget);
-        keyDot->setObjectName("keyDot");
-        keyDot->setGeometry(QRect(803, 531, 66, 39));
-        keyDot->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
-        keyDot->setFocusPolicy(Qt::NoFocus);
-        keyDot->setReadOnly(true);
-        keyDot->setTextInteractionFlags(Qt::NoTextInteraction);
+        keyPeriod = new QTextEdit(centralwidget);
+        keyPeriod->setObjectName("keyPeriod");
+        keyPeriod->setGeometry(QRect(803, 531, 66, 39));
+        keyPeriod->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
+        keyPeriod->setFocusPolicy(Qt::NoFocus);
+        keyPeriod->setReadOnly(true);
+        keyPeriod->setTextInteractionFlags(Qt::NoTextInteraction);
         keySlash = new QTextEdit(centralwidget);
         keySlash->setObjectName("keySlash");
         keySlash->setGeometry(QRect(875, 531, 65, 39));
@@ -358,13 +361,13 @@ public:
         keySemicolon->setFocusPolicy(Qt::NoFocus);
         keySemicolon->setReadOnly(true);
         keySemicolon->setTextInteractionFlags(Qt::NoTextInteraction);
-        keyQuote = new QTextEdit(centralwidget);
-        keyQuote->setObjectName("keyQuote");
-        keyQuote->setGeometry(QRect(916, 481, 64, 39));
-        keyQuote->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
-        keyQuote->setFocusPolicy(Qt::NoFocus);
-        keyQuote->setReadOnly(true);
-        keyQuote->setTextInteractionFlags(Qt::NoTextInteraction);
+        keyApostrophe = new QTextEdit(centralwidget);
+        keyApostrophe->setObjectName("keyApostrophe");
+        keyApostrophe->setGeometry(QRect(916, 481, 64, 39));
+        keyApostrophe->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
+        keyApostrophe->setFocusPolicy(Qt::NoFocus);
+        keyApostrophe->setReadOnly(true);
+        keyApostrophe->setTextInteractionFlags(Qt::NoTextInteraction);
         keyQ = new QTextEdit(centralwidget);
         keyQ->setObjectName("keyQ");
         keyQ->setGeometry(QRect(181, 431, 66, 39));
@@ -435,20 +438,20 @@ public:
         keyP->setFocusPolicy(Qt::NoFocus);
         keyP->setReadOnly(true);
         keyP->setTextInteractionFlags(Qt::NoTextInteraction);
-        keySqrBrackL = new QTextEdit(centralwidget);
-        keySqrBrackL->setObjectName("keySqrBrackL");
-        keySqrBrackL->setGeometry(QRect(894, 431, 65, 39));
-        keySqrBrackL->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
-        keySqrBrackL->setFocusPolicy(Qt::NoFocus);
-        keySqrBrackL->setReadOnly(true);
-        keySqrBrackL->setTextInteractionFlags(Qt::NoTextInteraction);
-        keySqrBrackR = new QTextEdit(centralwidget);
-        keySqrBrackR->setObjectName("keySqrBrackR");
-        keySqrBrackR->setGeometry(QRect(965, 431, 65, 39));
-        keySqrBrackR->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
-        keySqrBrackR->setFocusPolicy(Qt::NoFocus);
-        keySqrBrackR->setReadOnly(true);
-        keySqrBrackR->setTextInteractionFlags(Qt::NoTextInteraction);
+        keyBracketLeft = new QTextEdit(centralwidget);
+        keyBracketLeft->setObjectName("keyBracketLeft");
+        keyBracketLeft->setGeometry(QRect(894, 431, 65, 39));
+        keyBracketLeft->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
+        keyBracketLeft->setFocusPolicy(Qt::NoFocus);
+        keyBracketLeft->setReadOnly(true);
+        keyBracketLeft->setTextInteractionFlags(Qt::NoTextInteraction);
+        keyBracketRight = new QTextEdit(centralwidget);
+        keyBracketRight->setObjectName("keyBracketRight");
+        keyBracketRight->setGeometry(QRect(965, 431, 65, 39));
+        keyBracketRight->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
+        keyBracketRight->setFocusPolicy(Qt::NoFocus);
+        keyBracketRight->setReadOnly(true);
+        keyBracketRight->setTextInteractionFlags(Qt::NoTextInteraction);
         keyQuoteLeft = new QTextEdit(centralwidget);
         keyQuoteLeft->setObjectName("keyQuoteLeft");
         keyQuoteLeft->setGeometry(QRect(81, 381, 65, 39));
@@ -540,6 +543,11 @@ public:
         keyEqual->setFocusPolicy(Qt::NoFocus);
         keyEqual->setReadOnly(true);
         keyEqual->setTextInteractionFlags(Qt::NoTextInteraction);
+        comboBoxLanguage = new QComboBox(centralwidget);
+        comboBoxLanguage->addItem(QString());
+        comboBoxLanguage->addItem(QString());
+        comboBoxLanguage->setObjectName("comboBoxLanguage");
+        comboBoxLanguage->setGeometry(QRect(20, 110, 101, 31));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -565,7 +573,7 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">BACKSPACE</span></p></body></html>", nullptr));
-        keyRevSlash->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        keyBackSlash->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -692,7 +700,7 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; vertical-align:super;\">&lt;</span><span style=\" font-size:18pt;\"> ,</span></p></body></html>", nullptr));
-        keyDot->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        keyPeriod->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -788,7 +796,7 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; vertical-align:super;\">: </span><span style=\" font-size:16pt;\">;</span></p></body></html>", nullptr));
-        keyQuote->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        keyApostrophe->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -876,7 +884,7 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt;\">P</span></p></body></html>", nullptr));
-        keySqrBrackL->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        keyBracketLeft->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -884,7 +892,7 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; vertical-align:super;\">{ </span><span style=\" font-size:18pt;\">[ </span></p></body></html>", nullptr));
-        keySqrBrackR->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        keyBracketRight->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
@@ -996,6 +1004,9 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; vertical-align:super;\">+</span><span style=\" font-size:18pt;\"> =</span></p></body></html>", nullptr));
+        comboBoxLanguage->setItemText(0, QCoreApplication::translate("MainWindow", "English", nullptr));
+        comboBoxLanguage->setItemText(1, QCoreApplication::translate("MainWindow", "\320\240\321\203\321\201\321\201\320\272\320\270\320\271", nullptr));
+
     } // retranslateUi
 
 };

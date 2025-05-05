@@ -11,6 +11,7 @@
 #include <QPalette>
 #include <QScrollBar>
 #include <QString>
+#include <QTextEdit>
 #include <QTimer>
 #include <QVector>
 #include "winwindow.h"
@@ -21,7 +22,7 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-enum Language { kEnglish = 0, kRussian };
+enum Language { kEN = 0, kRU };
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -51,9 +52,16 @@ class MainWindow : public QMainWindow {
     double ellapsedSeconds_ = 0;
     QTimer* timerUpdateParametrs_;
 
-    Language language_ = kEnglish;
-    QHash<Qt::Key, QVector<QChar>> keysUpper_;
-    QHash<Qt::Key, QVector<QChar>> keysLower_;
+    QHash<Qt::Key, QString> keysUpper_;
+    QHash<Qt::Key, QString> keysLower_;
+
+    QHash<Qt::Key, QString> enKeysUpper_;
+    QHash<Qt::Key, QString> enKeysLower_;
+
+    QHash<Qt::Key, QString> ruKeysUpper_;
+    QHash<Qt::Key, QString> ruKeysLower_;
+
+    QTimer* timerUpdateLanguage_;
 
     WinWindow* winwindow_;
 
@@ -64,15 +72,18 @@ class MainWindow : public QMainWindow {
     const int secondsInMinute_ = 60;
 
     void keyPressEvent(QKeyEvent* event) override;
+    QTextEdit* keyToUi(Qt::Key key);
     void changeTaskText(const QString& newText);
     void checkInput();
     void fixParametrs();
     void clearParametrs();
     void initLanguages();
+    void changeKeyboardLanguage();
 
    private slots:
     void OpenFile();
     void ClearInput();
     void UpdateParametrsSlot();
+    void UpdateLanguageSlot();
 };
 #endif	// MAINWINDOW_H
