@@ -546,6 +546,8 @@ public:
         comboBoxLanguage = new QComboBox(centralwidget);
         comboBoxLanguage->addItem(QString());
         comboBoxLanguage->addItem(QString());
+        comboBoxLanguage->addItem(QString());
+        comboBoxLanguage->addItem(QString());
         comboBoxLanguage->setObjectName("comboBoxLanguage");
         comboBoxLanguage->setGeometry(QRect(20, 110, 101, 31));
         comboBoxLanguage->setFocusPolicy(Qt::NoFocus);
@@ -1007,6 +1009,8 @@ public:
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; vertical-align:super;\">+</span><span style=\" font-size:18pt;\"> =</span></p></body></html>", nullptr));
         comboBoxLanguage->setItemText(0, QCoreApplication::translate("MainWindow", "English", nullptr));
         comboBoxLanguage->setItemText(1, QCoreApplication::translate("MainWindow", "\320\240\321\203\321\201\321\201\320\272\320\270\320\271", nullptr));
+        comboBoxLanguage->setItemText(2, QCoreApplication::translate("MainWindow", "Deutsch", nullptr));
+        comboBoxLanguage->setItemText(3, QCoreApplication::translate("MainWindow", "Fran\303\247ais", nullptr));
 
     } // retranslateUi
 

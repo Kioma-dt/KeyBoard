@@ -54,12 +54,22 @@ class MainWindow : public QMainWindow {
 
     QHash<Qt::Key, QString> keysUpper_;
     QHash<Qt::Key, QString> keysLower_;
+    QHash<Qt::Key, QHash<QString, QString>> deadKey_;
+    Qt::Key prevDeadKey_ = Qt::Key_unknown;
 
     QHash<Qt::Key, QString> enKeysUpper_;
     QHash<Qt::Key, QString> enKeysLower_;
 
     QHash<Qt::Key, QString> ruKeysUpper_;
     QHash<Qt::Key, QString> ruKeysLower_;
+
+    QHash<Qt::Key, QString> deKeysUpper_;
+    QHash<Qt::Key, QString> deKeysLower_;
+    QHash<Qt::Key, QHash<QString, QString>> deDeadKey_;
+
+    QHash<Qt::Key, QString> frKeysUpper_;
+    QHash<Qt::Key, QString> frKeysLower_;
+    QHash<Qt::Key, QHash<QString, QString>> frDeadKey_;
 
     QTimer* timerUpdateLanguage_;
 
@@ -73,6 +83,7 @@ class MainWindow : public QMainWindow {
 
     void keyPressEvent(QKeyEvent* event) override;
     QTextEdit* keyToUi(Qt::Key key);
+    QString deadKeyToText(Qt::Key key);
     void changeTaskText(const QString& newText);
     void checkInput();
     void fixParametrs();

@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget* parent)
     this->initLanguages();
     keysUpper_ = enKeysUpper_;
     keysLower_ = enKeysLower_;
+    deadKey_ = deDeadKey_;
 }
 
 MainWindow::~MainWindow() {
@@ -64,8 +65,12 @@ MainWindow::~MainWindow() {
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
     QTextEdit* pressed = nullptr;
-
     QString key = event->text();
+
+    if (deadKey_.contains(static_cast<Qt::Key>(event->key()))) {
+        prevDeadKey_ = static_cast<Qt::Key>(event->key());
+        key = deadKeyToText(prevDeadKey_);
+    }
 
     if (key == keysUpper_.value(Qt::Key_Q) ||
         key == keysLower_.value(Qt::Key_Q)) {
@@ -285,8 +290,16 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             pressed->setPalette(normalKey_);
         });
         if (event->key() != Qt::Key_Shift) {
-            if (event->key() != Qt::Key_Backspace &&
-                event->key() != Qt::Key_Return) {
+            if (prevDeadKey_ != Qt::Key_unknown && event->text() != "") {
+                if (deadKey_[prevDeadKey_].contains(event->text())) {
+                    userInput_.append(
+                        deadKey_[prevDeadKey_].value(event->text()));
+                } else {
+                    userInput_.append(event->text());
+                }
+                prevDeadKey_ = Qt::Key_unknown;
+            } else if (event->key() != Qt::Key_Backspace &&
+                       event->key() != Qt::Key_Return) {
                 userInput_.append(event->text());
             }
             ui_->userInput->setText(userInput_);
@@ -399,6 +412,25 @@ QTextEdit* MainWindow::keyToUi(Qt::Key key) {
             return ui_->keyQuoteLeft;
         default:
             return nullptr;
+    }
+}
+
+QString MainWindow::deadKeyToText(Qt::Key key) {
+
+
+    switch (key) {
+        case Qt::Key_Dead_Circumflex:
+            return "^";
+        case Qt::Key_Dead_Diaeresis:
+            return "\"";
+        case Qt::Key_Dead_Grave:
+            return "`";
+        case Qt::Key_Dead_Acute:
+            return "´";
+        case Qt::Key_Dead_Tilde:
+            return "~";
+        default:
+            return "";
     }
 }
 
@@ -656,6 +688,287 @@ void MainWindow::initLanguages() {
                                            {Qt::Key_Comma, "б"},
                                            {Qt::Key_Period, "ю"},
                                            {Qt::Key_Slash, "."}};
+
+    deKeysUpper_ = QHash<Qt::Key, QString>{
+        {Qt::Key_Q, "Q"},			{Qt::Key_W, "W"},
+        {Qt::Key_E, "E"},			{Qt::Key_R, "R"},
+        {Qt::Key_T, "T"},			{Qt::Key_Y, "Z"},
+        {Qt::Key_U, "U"},			{Qt::Key_I, "I"},
+        {Qt::Key_O, "O"},			{Qt::Key_P, "P"},
+        {Qt::Key_BracketLeft, "Ü"}, {Qt::Key_BracketRight, "*"},
+        {Qt::Key_Backslash, "'"},	{Qt::Key_A, "A"},
+        {Qt::Key_S, "S"},			{Qt::Key_D, "D"},
+        {Qt::Key_F, "F"},			{Qt::Key_G, "G"},
+        {Qt::Key_H, "H"},			{Qt::Key_J, "J"},
+        {Qt::Key_K, "K"},			{Qt::Key_L, "L"},
+        {Qt::Key_Semicolon, "Ö"},	{Qt::Key_Apostrophe, "Ä"},
+        {Qt::Key_Z, "Y"},			{Qt::Key_X, "X"},
+        {Qt::Key_C, "C"},			{Qt::Key_V, "V"},
+        {Qt::Key_B, "B"},			{Qt::Key_N, "N"},
+        {Qt::Key_M, "M"},			{Qt::Key_Comma, ";"},
+        {Qt::Key_Period, ":"},		{Qt::Key_Slash, "_"},
+        {Qt::Key_QuoteLeft, "°"},
+
+        {Qt::Key_1, "!"},			{Qt::Key_2, "\""},
+        {Qt::Key_3, "§"},			{Qt::Key_4, "$"},
+        {Qt::Key_5, "%"},			{Qt::Key_6, "&"},
+        {Qt::Key_7, "/"},			{Qt::Key_8, "("},
+        {Qt::Key_9, ")"},			{Qt::Key_0, "="},
+        {Qt::Key_Minus, "?"},		{Qt::Key_Equal, "`"}};
+
+    deKeysLower_ = QHash<Qt::Key, QString>{
+        {Qt::Key_Q, "q"},			{Qt::Key_W, "w"},
+        {Qt::Key_E, "e"},			{Qt::Key_R, "r"},
+        {Qt::Key_T, "t"},			{Qt::Key_Y, "z"},
+        {Qt::Key_U, "u"},			{Qt::Key_I, "i"},
+        {Qt::Key_O, "o"},			{Qt::Key_P, "p"},
+        {Qt::Key_BracketLeft, "ü"}, {Qt::Key_BracketRight, "+"},
+        {Qt::Key_Backslash, "#"},	{Qt::Key_A, "a"},
+        {Qt::Key_S, "s"},			{Qt::Key_D, "d"},
+        {Qt::Key_F, "f"},			{Qt::Key_G, "g"},
+        {Qt::Key_H, "h"},			{Qt::Key_J, "j"},
+        {Qt::Key_K, "k"},			{Qt::Key_L, "l"},
+        {Qt::Key_Semicolon, "ö"},	{Qt::Key_Apostrophe, "ä"},
+        {Qt::Key_Z, "y"},			{Qt::Key_X, "x"},
+        {Qt::Key_C, "c"},			{Qt::Key_V, "v"},
+        {Qt::Key_B, "b"},			{Qt::Key_N, "n"},
+        {Qt::Key_M, "m"},			{Qt::Key_Comma, ","},
+        {Qt::Key_Period, "."},		{Qt::Key_Slash, "-"},
+        {Qt::Key_QuoteLeft, "^"},
+
+        {Qt::Key_1, "1"},			{Qt::Key_2, "2"},
+        {Qt::Key_3, "3"},			{Qt::Key_4, "4"},
+        {Qt::Key_5, "5"},			{Qt::Key_6, "6"},
+        {Qt::Key_7, "7"},			{Qt::Key_8, "8"},
+        {Qt::Key_9, "9"},			{Qt::Key_0, "0"},
+        {Qt::Key_Minus, "ß"},		{Qt::Key_Equal, "´"}};
+
+    deDeadKey_ = {{Qt::Key_Dead_Circumflex,
+                   {{"j", "ĵ"},
+                    {"a", "â"},
+                    {"e", "ê"},
+                    {"i", "î"},
+                    {"o", "ô"},
+                    {"u", "û"},
+                    {"J", "Ĵ"},
+                    {"A", "Â"},
+                    {"E", "Ê"},
+                    {"I", "Î"},
+                    {"O", "Ô"},
+                    {"U", "Û"}}},
+                  {Qt::Key_Dead_Diaeresis,
+                   {{"a", "ä"},
+                    {"o", "ö"},
+                    {"u", "ü"},
+                    {"A", "Ä"},
+                    {"O", "Ö"},
+                    {"U", "Ü"},
+                    {"e", "ë"},
+                    {"i", "ï"},
+                    {"y", "ÿ"},
+                    {"E", "Ë"},
+                    {"I", "Ï"},
+                    {"Y", "Ÿ"}}},
+                  {Qt::Key_Dead_Grave,
+                   {{"a", "à"},
+                    {"e", "è"},
+                    {"i", "ì"},
+                    {"o", "ò"},
+                    {"u", "ù"},
+                    {"A", "À"},
+                    {"E", "È"},
+                    {"I", "Ì"},
+                    {"O", "Ò"},
+                    {"U", "Ù"}}},
+                  {Qt::Key_Dead_Acute,
+                   {{"j", "j́"},
+                    {"a", "á"},
+                    {"e", "é"},
+                    {"i", "í"},
+                    {"o", "ó"},
+                    {"u", "ú"},
+                    {"y", "ý"},
+                    {"J", "J́"},
+                    {"A", "Á"},
+                    {"E", "É"},
+                    {"I", "Í"},
+                    {"O", "Ó"},
+                    {"U", "Ú"},
+                    {"Y", "Ý"}}},
+                  {Qt::Key_Dead_Tilde,
+                   {{"a", "ã"},
+                    {"o", "õ"},
+                    {"n", "ñ"},
+                    {"A", "Ã"},
+                    {"O", "Õ"},
+                    {"N", "Ñ"}}}};
+
+    frKeysUpper_ = QHash<Qt::Key, QString>{{Qt::Key_A, "Q"},
+                                           {Qt::Key_Z, "W"},
+                                           {Qt::Key_E, "E"},
+                                           {Qt::Key_R, "R"},
+                                           {Qt::Key_T, "T"},
+                                           {Qt::Key_Y, "Y"},
+                                           {Qt::Key_U, "U"},
+                                           {Qt::Key_I, "I"},
+                                           {Qt::Key_O, "O"},
+                                           {Qt::Key_P, "P"},
+                                           {Qt::Key_Q, "A"},
+                                           {Qt::Key_S, "S"},
+                                           {Qt::Key_D, "D"},
+                                           {Qt::Key_F, "F"},
+                                           {Qt::Key_G, "G"},
+                                           {Qt::Key_H, "H"},
+                                           {Qt::Key_J, "J"},
+                                           {Qt::Key_K, "K"},
+                                           {Qt::Key_L, "L"},
+                                           {Qt::Key_M, "M"},
+                                           {Qt::Key_W, "Z"},
+                                           {Qt::Key_X, "X"},
+                                           {Qt::Key_C, "C"},
+                                           {Qt::Key_V, "V"},
+                                           {Qt::Key_B, "B"},
+                                           {Qt::Key_N, "N"},
+
+                                           {Qt::Key_1, "1"},
+                                           {Qt::Key_2, "2"},
+                                           {Qt::Key_3, "3"},
+                                           {Qt::Key_4, "4"},
+                                           {Qt::Key_5, "5"},
+                                           {Qt::Key_6, "6"},
+                                           {Qt::Key_7, "7"},
+                                           {Qt::Key_8, "8"},
+                                           {Qt::Key_9, "9"},
+                                           {Qt::Key_0, "0"},
+                                           {Qt::Key_Equal, "+"},
+                                           {Qt::Key_Minus, "°"},
+
+                                           {Qt::Key_QuoteLeft, "~"},
+                                           {Qt::Key_BracketLeft, "¨"},
+                                           {Qt::Key_BracketRight, "£"},
+                                           {Qt::Key_Backslash, "µ"},
+
+                                           {Qt::Key_Semicolon, "M"},
+                                           {Qt::Key_Apostrophe, "%"},
+                                           {Qt::Key_Comma, "?"},
+                                           {Qt::Key_Period, "."},
+                                           {Qt::Key_Slash, "/"}};
+
+    frKeysLower_ = QHash<Qt::Key, QString>{{Qt::Key_A, "q"},
+                                           {Qt::Key_Z, "w"},
+                                           {Qt::Key_E, "e"},
+                                           {Qt::Key_R, "r"},
+                                           {Qt::Key_T, "t"},
+                                           {Qt::Key_Y, "y"},
+                                           {Qt::Key_U, "u"},
+                                           {Qt::Key_I, "i"},
+                                           {Qt::Key_O, "o"},
+                                           {Qt::Key_P, "p"},
+                                           {Qt::Key_Q, "a"},
+                                           {Qt::Key_S, "s"},
+                                           {Qt::Key_D, "d"},
+                                           {Qt::Key_F, "f"},
+                                           {Qt::Key_G, "g"},
+                                           {Qt::Key_H, "h"},
+                                           {Qt::Key_J, "j"},
+                                           {Qt::Key_K, "k"},
+                                           {Qt::Key_L, "l"},
+                                           {Qt::Key_M, "m"},
+                                           {Qt::Key_W, "z"},
+                                           {Qt::Key_X, "x"},
+                                           {Qt::Key_C, "c"},
+                                           {Qt::Key_V, "v"},
+                                           {Qt::Key_B, "b"},
+                                           {Qt::Key_N, "n"},
+
+                                           {Qt::Key_1, "&"},
+                                           {Qt::Key_2, "é"},
+                                           {Qt::Key_3, "\""},
+                                           {Qt::Key_4, "'"},
+                                           {Qt::Key_5, "("},
+                                           {Qt::Key_6, "-"},
+                                           {Qt::Key_7, "è"},
+                                           {Qt::Key_8, "_"},
+                                           {Qt::Key_9, "ç"},
+                                           {Qt::Key_0, "à"},
+                                           {Qt::Key_Minus, ")"},
+                                           {Qt::Key_Equal, "="},
+
+                                           {Qt::Key_QuoteLeft, "²"},
+                                           {Qt::Key_BracketLeft, "^"},
+                                           {Qt::Key_BracketRight, "$"},
+                                           {Qt::Key_Backslash, "*"},
+
+                                           {Qt::Key_Semicolon, "m"},
+                                           {Qt::Key_Apostrophe, "ù"},
+                                           {Qt::Key_Comma, ","},
+                                           {Qt::Key_Period, ";"},
+                                           {Qt::Key_Slash, ":"}};
+
+    frDeadKey_ = {// ^ (circonflexe)
+                  {Qt::Key_Dead_Circumflex,
+                   {{"a", "â"},
+                    {"e", "ê"},
+                    {"i", "î"},
+                    {"o", "ô"},
+                    {"u", "û"},
+                    {"A", "Â"},
+                    {"E", "Ê"},
+                    {"I", "Î"},
+                    {"O", "Ô"},
+                    {"U", "Û"}}},
+
+                  // ¨ (tréma)
+                  {Qt::Key_Dead_Diaeresis,
+                   {{"a", "ä"},
+                    {"e", "ë"},
+                    {"i", "ï"},
+                    {"o", "ö"},
+                    {"u", "ü"},
+                    {"y", "ÿ"},
+                    {"A", "Ä"},
+                    {"E", "Ë"},
+                    {"I", "Ï"},
+                    {"O", "Ö"},
+                    {"U", "Ü"},
+                    {"Y", "Ÿ"}}},
+
+                  // ` (accent grave)
+                  {Qt::Key_QuoteLeft,
+                   {{"a", "à"},
+                    {"e", "è"},
+                    {"i", "ì"},
+                    {"o", "ò"},
+                    {"u", "ù"},
+                    {"A", "À"},
+                    {"E", "È"},
+                    {"I", "Ì"},
+                    {"O", "Ò"},
+                    {"U", "Ù"}}},
+
+                  // ´ (accent aigu)
+                  {Qt::Key_acute,
+                   {{"a", "á"},
+                    {"e", "é"},
+                    {"i", "í"},
+                    {"o", "ó"},
+                    {"u", "ú"},
+                    {"y", "ý"},
+                    {"A", "Á"},
+                    {"E", "É"},
+                    {"I", "Í"},
+                    {"O", "Ó"},
+                    {"U", "Ú"},
+                    {"Y", "Ý"}}},
+
+                  // ~ (tilde)
+                  {Qt::Key_AsciiTilde,
+                   {{"a", "ã"},
+                    {"o", "õ"},
+                    {"n", "ñ"},
+                    {"A", "Ã"},
+                    {"O", "Õ"},
+                    {"N", "Ñ"}}}};
 }
 
 void MainWindow::changeKeyboardLanguage() {
@@ -746,6 +1059,14 @@ void MainWindow::UpdateLanguageSlot() {
     } else if (ui_->comboBoxLanguage->currentText() == "Русский") {
         keysUpper_ = ruKeysUpper_;
         keysLower_ = ruKeysLower_;
+    } else if (ui_->comboBoxLanguage->currentText() == "Deutsch") {
+        keysUpper_ = deKeysUpper_;
+        keysLower_ = deKeysLower_;
+        deadKey_ = deDeadKey_;
+    } else if (ui_->comboBoxLanguage->currentText() == "Français") {
+        keysUpper_ = frKeysUpper_;
+        keysLower_ = frKeysLower_;
+        deadKey_ = frDeadKey_;
     }
 
 

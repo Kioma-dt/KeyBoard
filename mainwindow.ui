@@ -1878,6 +1878,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <string>Русский</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Deutsch</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Français</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
